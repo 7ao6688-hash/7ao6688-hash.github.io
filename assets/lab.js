@@ -147,10 +147,35 @@
       const W = 520, H = 170, L = 40, R = 10, T = 10, Bm = 26, len = pts[pts.length - 1][0];
       const lo = Math.min(-2, ...vals), hi = Math.max(2, ...vals);
       const X = d => L + d / len * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - Bm);
-      let path = "", pen = false;
-      for (const [d, v] of pts) { if (!Number.isFinite(v)) { pen = false; continue; } path += (pen ? "L" : "M") + X(d).toFixed(1) + "," + Y(v).toFixed(1); pen = true; }
+      const line = series => {
+        let d = "", pen = false;
+        for (const [x, v] of series) { if (!Number.isFinite(v)) { pen = false; continue; } d += (pen ? "L" : "M") + X(x).toFixed(1) + "," + Y(v).toFixed(1); pen = true; }
+        return d;
+      };
+      // Trend: centred moving mean over valid samples only, drawn where enough of the window is measured.
+      const k = Math.max(3, Math.round(pts.length / 40));
+      const trend = pts.map(([x], i) => {
+        let s = 0, c = 0;
+        for (let j = Math.max(0, i - k); j <= Math.min(pts.length - 1, i + k); j++) if (Number.isFinite(pts[j][1])) { s += pts[j][1]; c++; }
+        return [x, c >= k ? s / c : NaN];
+      });
+      // Gaps: join the last measured point before each masked stretch to the first one after it.
+      const valid = pts.map((p, i) => Number.isFinite(p[1]) ? i : -1).filter(i => i >= 0);
+      let gaps = "", widest = null;
+      for (let g = 1; g < valid.length; g++) {
+        const a = pts[valid[g - 1]], b = pts[valid[g]];
+        if (valid[g] - valid[g - 1] < 3) continue;
+        gaps += `<line x1="${X(a[0]).toFixed(1)}" y1="${Y(a[1]).toFixed(1)}" x2="${X(b[0]).toFixed(1)}" y2="${Y(b[1]).toFixed(1)}" stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="4 4"/>`;
+        if (!widest || X(b[0]) - X(a[0]) > widest.w) widest = { w: X(b[0]) - X(a[0]), x: (X(a[0]) + X(b[0])) / 2, y: Math.min(Y(a[1]), Y(b[1])) - 6 };
+      }
+      const gapLabel = widest && widest.w > 70 ? `<text x="${widest.x.toFixed(1)}" y="${Math.max(T + 10, widest.y).toFixed(1)}" text-anchor="middle" class="ax">no reliable data</text>` : "";
       const ticks = [lo, 0, hi].map(v => `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" class="grid"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end" class="ax">${v.toFixed(0)}</text>`).join("");
-      $("insar-profile").innerHTML = `${ticks}<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
+      const key = `<g transform="translate(${W - R - 236},${T})">
+        <line x1="0" x2="16" y1="5" y2="5" stroke="var(--accent)" stroke-width="1.6"/><text x="20" y="9" class="ax">measured</text>
+        <line x1="80" x2="96" y1="5" y2="5" stroke="var(--accent)" stroke-width="5" stroke-opacity=".3"/><text x="100" y="9" class="ax">trend</text>
+        <line x1="138" x2="154" y1="5" y2="5" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="158" y="9" class="ax">no reliable data</text></g>`;
+      $("insar-profile").innerHTML = `${ticks}<path d="${line(trend)}" fill="none" stroke="var(--accent)" stroke-opacity=".3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        ${gaps}<path d="${line(pts)}" fill="none" stroke="var(--accent)" stroke-width="1.6"/>${gapLabel}${key}
         <text x="${L}" y="${H - 6}" class="ax">A</text><text x="${W - R}" y="${H - 6}" text-anchor="end" class="ax">B · ${len.toFixed(1)} km</text>
         <text x="${(L + W) / 2}" y="${H - 6}" text-anchor="middle" class="ax">LOS displacement (cm)</text>`;
       $("insar-max").textContent = vals.length ? Math.max(...vals).toFixed(1) + " cm" : "–";
