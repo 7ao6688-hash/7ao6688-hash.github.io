@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapping the Valencia DANA flood from space · Xiaoqiao Liu</title>
+<meta name="description" content="On 29 October 2024 a storm dropped more than a year's rain in hours on the towns south of València. Satellite images from before and after show where the water spread, how long it stayed, and which areas were hit hardest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">Flood mapping · Valencia, Spain · October 2024</p>
+<h1>Mapping the Valencia DANA flood from space</h1>
+<p class="lede">On 29 October 2024 a storm dropped more than a year's rain in hours on the towns south of València. Satellite images from before and after show where the water spread, how long it stayed, and which areas were hit hardest.</p>
+<div class="stats"><div><b>67 km²</b><span>standing water the day after (Landsat)</span></div><div><b>42 km²</b><span>still flooded on 1 Nov (radar)</span></div><div><b>14 km²</b><span>left on 6 Nov as it drained</span></div><div><b>57%</b><span>of the first map confirmed by radar</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/valencia-radar.webp" alt="Radar before (20 Oct) and after (1 Nov), and how the radar flood map compares with the Landsat map from 30 Oct."></div><figcaption>Radar before (20 Oct) and after (1 Nov), and how the radar flood map compares with the Landsat map from 30 Oct.</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>Emergency teams and insurers need to know <b>where the water went and for how long</b>, quickly and over a wide area. Ground surveys are slow and dangerous straight after a flood, and storm cloud often blocks ordinary satellite photos.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Compared optical images from before and after.</b> Landsat 8 photographed the area on 28 September and again on 30 October, one day after the flood. A water index (<span class="term" tabindex="0">MNDWI<span class="def" role="tooltip">Modified Normalised Difference Water Index: (green − shortwave infrared) ÷ (green + shortwave infrared). Water scores above zero.</span></span>) shows which pixels turned to water.</li>
+<li><b>Let the data choose the cut-off.</b> Instead of picking a threshold by eye, <span class="term" tabindex="0">Otsu<span class="def" role="tooltip">Otsu's method picks the threshold that best separates two groups in a histogram, here water and land, without a human choosing it.</span></span>'s method found it from the image itself. I then reran the map with the threshold moved up and down to show how much the answer depends on it.</li>
+<li><b>Added radar, which sees through cloud.</b> Sentinel-1 <span class="term" tabindex="0">SAR<span class="def" role="tooltip">Synthetic aperture radar. The satellite sends its own microwave pulses, so it images through cloud, day or night.</span></span> images from 20 October and 1 November show water as dark areas. A pixel counted as flooded only if it was dark after the flood, not before, and darker by at least 3 <span class="term" tabindex="0">dB<span class="def" role="tooltip">Decibels: a log scale for radar brightness. Every 10 dB is a factor of ten in reflected energy.</span></span>.</li>
+<li><b>Tracked the water draining.</b> A second radar pair (25 October and 6 November) shows how much water was left a week later.</li>
+<li><b>Counted exposed buildings.</b> I overlaid 79,000 OpenStreetMap building outlines on the flood maps.</li></ol>
+</section>
+<section><h2>What the maps show</h2>
+<figure class="fig"><img src="../assets/valencia-optical.webp" alt="Landsat true colour before and after, and new standing water" loading="lazy"></figure>
+<figcaption>Landsat 8: before (28 Sep), the day after (30 Oct), and the new standing water in blue.</figcaption>
+<p>Most of the floodwater sat on the rice paddies and fields around the Albufera lagoon. The two satellites, three days apart, agree on the large bodies of water: radar confirms 57% of the area Landsat mapped, and finds another 3.5 km² that Landsat missed under cloud.</p>
+<div class="pair"><figure class="fig"><img src="../assets/valencia-timeline.webp" alt="Bar chart of flooded area on 30 Oct, 1 Nov and 6 Nov" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/valencia-towns.webp" alt="Radar brightness change in flooded and comparison towns" loading="lazy"></figure></div>
+<p>The worst-hit towns, such as Paiporta and Catarroja, had already drained by the time any satellite passed over, so they don't show up as open water. On radar, though, their buildings became 0.8 to 1.4 dB brighter, while unflooded parts of València changed by only 0.25 to 0.55 dB. Mud, debris and wet walls explain the difference.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>The building count is a minimum.</b> Only 191 buildings sat in open water on 30 October. Many more were damaged by water that had already drained.</li>
+<li><b>The threshold matters.</b> Moving the Landsat threshold by ±0.15 gives 51 to 99 km². That range is reported alongside the main figure.</li>
+<li><b>One snapshot per satellite.</b> Flooding that came and went between overpasses can't be seen.</li>
+<li><b>Not yet checked against official maps</b> such as the Copernicus Emergency Management Service delineation for this event.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>Flood extent layers (GeoTIFF and GeoPackage) for each date</li><li>A list of exposed buildings and roads</li>
+<li>Map sheets and a short report with the uncertainty range, ready for emergency, insurance or planning teams</li><li>The code, so the same analysis can be rerun for the next event</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>Landsat 8 Level-2, 30 m</li><li>Sentinel-1 RTC (VV), 10 m</li><li>OpenStreetMap buildings</li></ul></div><div><h3>Methods</h3><ul><li>MNDWI change detection</li><li>Radar backscatter change</li><li>Otsu thresholds</li><li>Building exposure</li></ul></div><div><h3>Tools</h3><ul><li>Python, rasterio, GeoPandas</li><li>Microsoft Planetary Computer</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/valencia-flood-2024" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Optical pair</th><td>LC08 198/033, 28 Sep and 30 Oct 2024; QA_PIXEL cloud mask; 91% clear on both dates</td></tr><tr><th>Optical rule</th><td>MNDWI after > 0.05 (Otsu) and MNDWI before ≤ 0</td></tr><tr><th>Radar pair</th><td>Sentinel-1A orbit 110 descending, 20 Oct and 1 Nov 2024; RTC γ⁰ averaged to 30 m; 3 × 3 speckle filter</td></tr><tr><th>Radar rule</th><td>VV after < −12.3 dB (Otsu), VV before ≥ −12.3 dB, change ≤ −3 dB</td></tr><tr><th>Follow-up</th><td>Orbit 8, 25 Oct → 6 Nov 2024; 83% of the area observed</td></tr><tr><th>Study area</th><td>20 × 25 km, 0.52–0.30° W, 39.28–39.50° N</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="earthquakes.html">Measuring how far the ground moved in two earthquakes →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

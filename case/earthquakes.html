@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Measuring how far the ground moved in two earthquakes · Xiaoqiao Liu</title>
+<meta name="description" content="Radar satellites can measure ground movement of a few centimetres over thousands of square kilometres. I used them to map the 2023 earthquakes in Türkiye and Morocco, and turned the results into figures that show exactly where the ground shifted most.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">Ground deformation · Türkiye and Morocco · 2023</p>
+<h1>Measuring how far the ground moved in two earthquakes</h1>
+<p class="lede">Radar satellites can measure ground movement of a few centimetres over thousands of square kilometres. I used them to map the 2023 earthquakes in Türkiye and Morocco, and turned the results into figures that show exactly where the ground shifted most.</p>
+<div class="stats"><div><b>≈ 74 cm</b><span>change across 10 km near Kahramanmaraş</span></div><div><b>≈ 15 cm</b><span>uplift towards the satellite in Morocco</span></div><div><b>2</b><span>earthquakes, two radar geometries</span></div><div><b>Exact</b><span>match with my original SNAP statistics</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/turkiye-los.webp" alt="Ground movement towards (red) and away from (blue) the satellite after the February 2023 Kahramanmaraş earthquakes."></div><figcaption>Ground movement towards (red) and away from (blue) the satellite after the February 2023 Kahramanmaraş earthquakes.</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>After a large earthquake, engineers and planners need to know <b>where the ground moved and by how much</b>: it guides damage surveys, rebuilding and hazard maps. GPS stations measure precisely but only at a few points. <span class="term" tabindex="0">InSAR<span class="def" role="tooltip">Interferometric SAR: comparing the phase of two radar images taken days apart reveals ground movement of centimetres or less.</span></span> measures everywhere the satellite can see.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Paired radar images from before and after</b> each earthquake: Sentinel-1, 29 January and 10 February 2023 for Türkiye, and 3 and 15 September 2023 for Morocco.</li>
+<li><b>Built the interferogram</b> in ESA SNAP: aligned the images, removed the effect of terrain with a digital elevation model, and filtered noise.</li>
+<li><b>Unwrapped the fringes</b> with SNAPHU (<span class="term" tabindex="0">unwrapping<span class="def" role="tooltip">Radar phase repeats every half wavelength (2.8 cm). Unwrapping counts the repeats to rebuild one continuous displacement map.</span></span>) and converted them to centimetres of movement along the <span class="term" tabindex="0">line of sight<span class="def" role="tooltip">Line of sight: radar only measures movement towards or away from the satellite, not up, down or sideways separately.</span></span>.</li>
+<li><b>Removed unreliable pixels</b> where <span class="term" tabindex="0">coherence<span class="def" role="tooltip">How similar the two radar images are, from 0 to 1. Low coherence (vegetation, water, big changes) means the measurement isn't reliable.</span></span> was below 0.3 (Morocco), and summarised the scene with robust statistics.</li>
+<li><b>Drew transects</b>, strips across the area, to show how movement changes with distance, with <span class="term" tabindex="0">bootstrap<span class="def" role="tooltip">Resampling the data many times to see how much a result could vary by chance, which gives a confidence interval.</span></span> confidence intervals.</li></ol>
+</section>
+<section><h2>What the maps show</h2>
+<div class="pair"><figure class="fig"><img src="../assets/turkiye-profile.webp" alt="Displacement profile across Kahramanmaraş" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/morocco-los.webp" alt="Displacement map of the 2023 Al Haouz earthquake" loading="lazy"></figure></div>
+<figcaption>Left: a transect through Kahramanmaraş. Right: the Al Haouz earthquake in Morocco.</figcaption>
+<p><b>Türkiye.</b> Along a north-west to south-east line through Kahramanmaraş, the ground's movement changes by about 74 cm over just 10 km, 17 to 27 km south-east of the city. That's where the main rupture crossed. Statistics for the city district match the SNAP output from my MSc dissertation exactly.</p>
+<p><b>Morocco.</b> An area just south of the epicentre moved up to about 15 cm towards the satellite, while the surrounding mountains barely moved.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>One viewing direction.</b> Radar only measures movement along its line of sight, so up-down and sideways motion can't be separated from one image pair.</li>
+<li><b>Relative values.</b> The numbers are relative to a reference point chosen by the unwrapping software. Differences across the map are what matter.</li>
+<li><b>No atmospheric correction or GPS check.</b> Water vapour can add a few centimetres of error, especially in mountains.</li>
+<li><b>Processing seams.</b> Straight-edged steps in the map come from how the data is stitched, not from tectonics.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>Displacement maps (GeoTIFF) and profiles across sites of interest</li><li>A table of movement statistics per area</li>
+<li>A plain-language note on what the numbers can and can't support</li><li>For monitoring: the same chain rerun on each new Sentinel-1 pass</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>Sentinel-1 IW SLC (C-band)</li><li>SRTM 1-arcsec DEM</li></ul></div><div><h3>Methods</h3><ul><li>Differential InSAR</li><li>Phase unwrapping</li><li>Coherence masking</li><li>Transect statistics</li></ul></div><div><h3>Tools</h3><ul><li>ESA SNAP, SNAPHU</li><li>Python, NumPy, matplotlib</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/insar-deformation-monitoring" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Türkiye pair</th><td>S1A orbit 21 descending, 29 Jan → 10 Feb 2023; TOPS chain with ESD; SNAPHU v2.0.4</td></tr><tr><th>Türkiye grid</th><td>8 × 8 block median (≈ 93 m); P1–P99 −36 to +94 cm (relative)</td></tr><tr><th>Morocco pair</th><td>S1A orbit 45 ascending, 3 → 15 Sep 2023; sub-swath IW1; coherence ≥ 0.3 (13% masked)</td></tr><tr><th>Transects</th><td>10 km swath perpendicular to the regional fault strike; 2 km (Türkiye) and 1 km (Morocco) bins</td></tr><tr><th>Context</th><td>Türkiye: MSc dissertation, University of Southampton, 2025</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="wildfire.html">How much carbon did a wildfire release? →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

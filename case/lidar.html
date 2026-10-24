@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turning LiDAR into a forest inventory · Xiaoqiao Liu</title>
+<meta name="description" content="Airborne laser scanning measures the height of every tree from above. This project turns LiDAR elevation models into canopy height, stand statistics and a ranked list of the forest areas that most need checking on the ground.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">LiDAR forest inventory · New Forest, UK</p>
+<h1>Turning LiDAR into a forest inventory</h1>
+<p class="lede">Airborne laser scanning measures the height of every tree from above. This project turns LiDAR elevation models into canopy height, stand statistics and a ranked list of the forest areas that most need checking on the ground.</p>
+<div class="stats"><div><b>3</b><span>height classes: 2–10, 10–15, ≥ 15 m</span></div><div><b>P95</b><span>robust top-of-canopy height</span></div><div><b>15</b><span>forest compartments in the original study</span></div><div><b>Demo</b><span>published with synthetic data</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/lidar-dashboard.svg" alt="Inventory dashboard produced by the workflow (synthetic demonstration scene)."></div><figcaption>Inventory dashboard produced by the workflow (synthetic demonstration scene).</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>Forest managers need to know <b>how tall and how dense the trees are, compartment by compartment</b>, to plan thinning, protect habitats and estimate timber or carbon. Measuring every stand on foot is slow, while <span class="term" tabindex="0">LiDAR<span class="def" role="tooltip">Light detection and ranging: an aircraft fires laser pulses and times their return, mapping the ground and tree tops in 3D.</span></span> covers a whole forest in one flight.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Separated ground from vegetation</b> in the laser returns and built a bare-earth model (DTM) and a surface model (DSM).</li>
+<li><b>Calculated canopy height</b> (<span class="term" tabindex="0">CHM<span class="def" role="tooltip">Canopy height model: the height of the vegetation above the ground, from surface height (DSM) minus ground height (DTM).</span></span>) as surface minus ground, with negative values set to zero.</li>
+<li><b>Summarised each forest compartment</b>: canopy cover, the share of trees in each height class, and the 95th-percentile height, which ignores stray tall pixels.</li>
+<li><b>Tested how stable the results are</b> if the elevation models are off by a few tens of centimetres, or if the height thresholds change.</li>
+<li><b>Ranked compartments for field checks</b> with a transparent score, so foresters know where to look first.</li></ol>
+</section>
+<section><h2>What it produces</h2>
+<p>In my MSc coursework I applied this to 15 compartments of the New Forest, combining LiDAR with airborne multispectral imagery to classify the canopy. The public version rebuilds the workflow as tested, reusable code. Because the original survey data are licensed, it ships with a <b>synthetic scene</b> with the same structure, so anyone can run it and see the outputs.</p>
+<p class="callout">The ranking is a list of where to send field teams first. It doesn't decide where to harvest. In a protected landscape like the New Forest, that decision also depends on habitats, access and permissions.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>The public results are a demonstration</b>, not field measurements.</li>
+<li><b>Vertical errors in the elevation models</b> shift every height. The workflow reports how the rankings change when they do.</li>
+<li><b>Height isn't species.</b> Multispectral or field data are needed to tell conifers from broadleaves.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>Canopy height and cover maps</li><li>A compartment table with height classes and P95 height</li>
+<li>A prioritised list for field validation</li><li>A data guide for preparing your own LiDAR (LAS/LAZ or GeoTIFF) in PDAL, QGIS or ArcGIS</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>Airborne LiDAR (DSM, DTM)</li><li>Forest mask and compartments</li><li>CASI multispectral (coursework)</li></ul></div><div><h3>Methods</h3><ul><li>Canopy height model</li><li>Zonal statistics</li><li>Sensitivity to vertical bias</li><li>Priority scoring</li></ul></div><div><h3>Tools</h3><ul><li>Python, NumPy</li><li>ArcGIS (coursework)</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/new-forest-lidar-inventory" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>CHM</th><td>max(DSM − DTM, 0) on a common grid and vertical datum</td></tr><tr><th>Metrics</th><td>Canopy cover, share in 2–10 / 10–15 / ≥ 15 m classes, P95 height per compartment</td></tr><tr><th>Sensitivity</th><td>Vertical bias and threshold scenarios; rank stability reported</td></tr><tr><th>Coursework</th><td>Ground points from first/last-return differences, IDW DTM, TIN-to-raster DSM, 15 compartments</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="valencia.html">Mapping the Valencia DANA flood from space →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

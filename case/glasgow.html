@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finding where greening would cool Glasgow most · Xiaoqiao Liu</title>
+<meta name="description" content="Cities heat up unevenly. Using a single Landsat image from a sunny June morning, I mapped Glasgow's surface temperature, measured how much cooler greener places are, and pinpointed the hot, bare neighbourhoods where planting would help most.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">Urban heat · Glasgow, UK · June 2019</p>
+<h1>Finding where greening would cool Glasgow most</h1>
+<p class="lede">Cities heat up unevenly. Using a single Landsat image from a sunny June morning, I mapped Glasgow's surface temperature, measured how much cooler greener places are, and pinpointed the hot, bare neighbourhoods where planting would help most.</p>
+<div class="stats"><div><b>4.6 °C</b><span>hotter: built-up land vs grassland</span></div><div><b>0.9 °C</b><span>cooler for each +0.1 NDVI</span></div><div><b>25.5 km²</b><span>hot, bare built-up land to prioritise</span></div><div><b>203 km²</b><span>of the city analysed at 30 m</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/glasgow-priority.webp" alt="Hot built-up land with little vegetation, ranked by how much greening could help."></div><figcaption>Hot built-up land with little vegetation, ranked by how much greening could help.</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>Councils planning street trees, green roofs and parks need to know <b>where extra greenery would cool the city most</b>. Heat affects health and comfort, and budgets are limited.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Measured surface temperature</b> (<span class="term" tabindex="0">LST<span class="def" role="tooltip">Land-surface temperature: how hot the ground and roofs are, measured from thermal infrared. It isn't the air temperature people feel.</span></span>) from Landsat 8's thermal band, correcting for how different surfaces emit heat.</li>
+<li><b>Mapped vegetation and land cover</b>: <span class="term" tabindex="0">NDVI<span class="def" role="tooltip">Normalised Difference Vegetation Index: (near infrared − red) ÷ (near infrared + red). Higher values mean more, healthier vegetation.</span></span> from the red and near-infrared bands, and a classification into built-up, water, forest and grassland.</li>
+<li><b>Measured the cooling effect of greenery</b> with a regression of temperature on NDVI from 200 random pixels, with a <span class="term" tabindex="0">bootstrap<span class="def" role="tooltip">Resampling the data many times to see how much a result could vary by chance, which gives a confidence interval.</span></span> confidence interval.</li>
+<li><b>Ranked priority areas:</b> built-up pixels that are both hot (well above the city average) and low in vegetation.</li>
+<li><b>Estimated what greening would buy</b> for small, medium and large increases in NDVI.</li></ol>
+</section>
+<section><h2>What the maps show</h2>
+<div class="pair"><figure class="fig"><img src="../assets/glasgow-lst.webp" alt="Glasgow land-surface temperature map" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/glasgow-scatter.webp" alt="Scatter plot of temperature against NDVI" loading="lazy"></figure></div>
+<p>Built-up land averaged 25.9 °C at the surface on 28 June 2019, against 21.3 °C for grassland. Greener pixels are clearly cooler: about 0.9 °C for every 0.1 increase in NDVI (95% interval 0.7 to 1.0 °C).</p>
+<p class="callout">Raising NDVI by 0.10 across the 25.5 km² of priority land, for example with street trees and green roofs, would cool its surface by roughly <b>0.9 °C (0.7 to 1.0 °C)</b>. Try other values in the interactive tool on the home page.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>Surface, not air.</b> Satellites measure how hot roofs and roads are, not the air temperature people feel.</li>
+<li><b>One sunny morning.</b> A single image captures one moment, not a whole summer.</li>
+<li><b>Association, not cause.</b> The cooling figures assume the city-wide relationship holds locally. They're for screening, not a promise for any one street.</li>
+<li><b>Small water bodies are under-mapped</b> at 30 m resolution.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>Temperature and vegetation maps for the whole city</li><li>A ranked map of priority areas for greening</li>
+<li>Cooling scenarios with uncertainty ranges</li><li>An interactive dashboard to explore options with stakeholders</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>Landsat 8 OLI/TIRS, 28 Jun 2019</li><li>Glasgow city boundary</li></ul></div><div><h3>Methods</h3><ul><li>Land-surface temperature retrieval</li><li>Supervised classification</li><li>Regression with bootstrap</li><li>Priority screening</li></ul></div><div><h3>Tools</h3><ul><li>ENVI, ArcGIS Pro</li><li>Python, NumPy</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/urban-heat-intervention-explorer" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>LST</th><td>TIRS band 10: radiance → brightness temperature → NDVI-based emissivity → Sobrino correction</td></tr><tr><th>Land cover</th><td>Maximum-likelihood classification: built-up 121 km², forest 59 km², grassland 21 km², water 1 km²</td></tr><tr><th>Regression</th><td>LST = −8.74 × NDVI + 29.5 °C; R² = 0.46; n = 200; bootstrap 95% CI −10.1 to −7.1</td></tr><tr><th>Priority</th><td>built-up, ≥ 0.35 SD above the city mean LST, NDVI < 0.35</td></tr><tr><th>Scenarios</th><td>+0.05 → 0.44 °C · +0.10 → 0.87 °C · +0.15 → 1.31 °C</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="spain.html">Which Spanish provinces need more water than they generate? →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

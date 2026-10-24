@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How much carbon did a wildfire release? · Xiaoqiao Liu</title>
+<meta name="description" content="The 2020 Red Salmon Complex fire burned through conifer forest in northern California. Comparing satellite images from before and after, I mapped how badly each area burned and estimated how much carbon the forest lost, along with how uncertain that estimate is.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">Forest carbon · California, USA · 2020</p>
+<h1>How much carbon did a wildfire release?</h1>
+<p class="lede">The 2020 Red Salmon Complex fire burned through conifer forest in northern California. Comparing satellite images from before and after, I mapped how badly each area burned and estimated how much carbon the forest lost, along with how uncertain that estimate is.</p>
+<div class="stats"><div><b>6.8 Mt</b><span>carbon lost from trees (estimate)</span></div><div><b>71,600 ha</b><span>burned at some severity</span></div><div><b>10% → 58%</b><span>high-severity area → share of carbon loss</span></div><div><b>−17% to +46%</b><span>range from the sensitivity test</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/wildfire-severity.webp" alt="Burn severity from Sentinel-2: unburned (grey) to high severity (dark red)."></div><figcaption>Burn severity from Sentinel-2: unburned (grey) to high severity (dark red).</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>Forest owners, carbon-credit projects and climate reporting need to know <b>how much carbon a fire released</b>. The answer depends on how severely each patch burned and how much wood was there to begin with.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Compared Sentinel-2 images</b> from July 2020 (before) and June 2021 (after), at 10 m resolution.</li>
+<li><b>Mapped burn severity</b> with the <span class="term" tabindex="0">dNBR<span class="def" role="tooltip">Difference in Normalised Burn Ratio before and after a fire. The bigger the drop, the more severely the vegetation burned.</span></span>, using standard thresholds for unburned, low, moderate and high severity.</li>
+<li><b>Estimated the wood before the fire</b> (<span class="term" tabindex="0">AGB<span class="def" role="tooltip">Above-ground biomass: the dry weight of trunks, branches and leaves, in tonnes per hectare.</span></span>) from a simple vegetation model, and how much of it each severity class lost.</li>
+<li><b>Converted biomass to carbon</b> (48% of dry wood is carbon) and added it up.</li>
+<li><b>Stress-tested every assumption</b> by moving each one up and down and rerunning the whole estimate.</li></ol>
+</section>
+<section><h2>What the results show</h2>
+<div class="pair"><figure class="fig"><img src="../assets/wildfire-carbon.webp" alt="Map of carbon loss per hectare" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/wildfire-share.webp" alt="Share of area and of carbon loss by severity class" loading="lazy"></figure></div>
+<p>High-severity burning covered only about 10% of the area but caused <b>58%</b> of the carbon loss. In total the forest lost an estimated 6.8 million tonnes of carbon, about 17% of what it held before.</p>
+<figure class="fig"><img src="../assets/wildfire-sensitivity.webp" alt="Sensitivity of the total to each assumption" loading="lazy"></figure>
+<p>The sensitivity test shows which assumption matters most: the burn-severity thresholds. Lowering them slightly raises the total by 46%. A client therefore needs a <b>range, not one number</b>, and field plots would narrow it the most.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>The biomass model is a simple assumption</b>, not calibrated with field measurements. It can be swapped for a published biomass map.</li>
+<li><b>Seasons differ.</b> The images are from July and June of different years, so some "low severity" pixels outside the fire are probably just seasonal change.</li>
+<li><b>Only living trees above ground are counted.</b> Soil, litter and later tree deaths are left out.</li>
+<li>My original coursework reported 4.5 Mt using a different burn layer. The difference is explained in the repository.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>Burn-severity and carbon-loss maps (GeoTIFF)</li><li>Tables by severity class and by area of interest</li>
+<li>A sensitivity table showing the plausible range</li><li>Advice on where field plots would reduce uncertainty most</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>Sentinel-2, 10 m</li><li>Before: 26 Jul 2020</li><li>After: 1 Jun 2021</li></ul></div><div><h3>Methods</h3><ul><li>dNBR burn severity</li><li>Biomass and carbon accounting</li><li>One-at-a-time sensitivity</li></ul></div><div><h3>Tools</h3><ul><li>Python, NumPy, matplotlib</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/wildfire-carbon-loss" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Index</th><td>NBR = (B8 − B12)/(B8 + B12); dNBR = NBR before − NBR after</td></tr><tr><th>Classes</th><td>unburned < 0.10 ≤ low < 0.27 ≤ moderate < 0.44 ≤ high</td></tr><tr><th>Biomass</th><td>AGB (t/ha) = 150 × NBR before + 200; retention 100 / 60 / 30 / 0% by class</td></tr><tr><th>Carbon</th><td>carbon = AGB loss × 0.48, summed over 0.01 ha pixels</td></tr><tr><th>Scene</th><td>53 × 54 km, 285,902 ha, UTM zone 10N</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="glasgow.html">Finding where greening would cool Glasgow most →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

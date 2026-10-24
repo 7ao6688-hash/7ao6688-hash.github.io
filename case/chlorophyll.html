@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Which satellite index best tracks plant health? · Xiaoqiao Liu</title>
+<meta name="description" content="Chlorophyll is the pigment that shows how healthy and productive plants are, and dozens of satellite indices claim to measure it. I tested five common ones on 160 lab-measured leaves from eight species, and on field plots seen by Sentinel-2.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">Vegetation health · lab and satellite</p>
+<h1>Which satellite index best tracks plant health?</h1>
+<p class="lede">Chlorophyll is the pigment that shows how healthy and productive plants are, and dozens of satellite indices claim to measure it. I tested five common ones on 160 lab-measured leaves from eight species, and on field plots seen by Sentinel-2.</p>
+<div class="stats"><div><b>0.75</b><span>MTCI, average R² within a species</span></div><div><b>0.76</b><span>MTCI, R² for canopy chlorophyll</span></div><div><b>≤ 0.21</b><span>NDVI and PSSRa in the lab</span></div><div><b>160</b><span>leaves from 8 species</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/chlorophyll-r2.webp" alt="How well each index explains chlorophyll, in the lab and from the satellite."></div><figcaption>How well each index explains chlorophyll, in the lab and from the satellite.</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>Farm advisers, foresters and ecologists use satellite indices to monitor crop vigour and forest health. <b>Choosing the wrong index can hide real problems</b>, because some indices stop responding once plants are moderately green.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Measured leaf reflectance</b> from 350 to 1050 nm on 160 leaves, and their chlorophyll content in the lab.</li>
+<li><b>Simulated what Sentinel-2 would see</b> by resampling each spectrum to the satellite's bands, including the <span class="term" tabindex="0">red edge<span class="def" role="tooltip">The steep rise in leaf reflectance between red and near-infrared light (about 690–750 nm). Its position shifts with chlorophyll content.</span></span> bands.</li>
+<li><b>Computed five indices</b>: NDVI, GNDVI, PSSRa, MTCI and IRECI.</li>
+<li><b>Tested each index three ways</b>: within each species, pooled across species, and on a species the model had never seen.</li>
+<li><b>Repeated the test with real Sentinel-2 images</b> over field plots in the New Forest, for both leaf and canopy chlorophyll.</li></ol>
+</section>
+<section><h2>What the results show</h2>
+<figure class="fig"><img src="../assets/chlorophyll-species.webp" alt="Heatmap of R² by species and index" loading="lazy"></figure>
+<p>The two indices built on the red-edge bands do best. MTCI explains about three quarters of the chlorophyll variation within a species. IRECI holds up best on a new species, which matters when a model has to work on crops it wasn't trained on. NDVI, the most widely used index, explains almost nothing for several species because it saturates on green leaves.</p>
+<figure class="fig"><img src="../assets/chlorophyll-canopy.webp" alt="Sentinel-2 index against canopy chlorophyll" loading="lazy"></figure>
+<p>From the satellite, every index tracks <b>canopy</b> chlorophyll (leaf chlorophyll × leaf area) better than leaf chlorophyll alone, because a pixel sees the whole canopy.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>Single leaves under lab light</b> are cleaner than real 20 m pixels, which mix leaves, branches, soil and shadow.</li>
+<li><b>One region and one season</b> (New Forest, April to October 2016) for the satellite part, so the models need recalibrating elsewhere.</li>
+<li>The original lab data are course data and aren't redistributed. Results and code are public.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>A recommendation of which index to use for a crop, forest or habitat</li><li>Calibrated index-to-chlorophyll models with error estimates</li>
+<li>Seasonal vigour maps from Sentinel-2</li><li>Guidance on how many field samples are needed</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>Lab leaf spectra, 350–1050 nm</li><li>Lab chlorophyll measurements</li><li>Sentinel-2 L2A field plots</li></ul></div><div><h3>Methods</h3><ul><li>Band resampling</li><li>Vegetation indices</li><li>Leave-one-out and leave-one-species-out tests</li></ul></div><div><h3>Tools</h3><ul><li>Python, pandas, NumPy</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/leaf-chlorophyll-indices" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Indices</th><td>MTCI (B6−B5)/(B5−B4) · IRECI (B7−B4)/(B5/B6) · GNDVI · NDVI · PSSRa, with B7 (783 nm) as NIR</td></tr><tr><th>Lab results</th><td>Within-species R²: MTCI 0.75, IRECI 0.63, GNDVI 0.60, NDVI 0.20, PSSRa 0.14</td></tr><tr><th>Transfer test</th><td>Leave-one-species-out RMSE: IRECI 37.4, MTCI 40.3, NDVI 57.0 µg/cm²</td></tr><tr><th>Satellite</th><td>R² for CCC: MTCI 0.76, GNDVI 0.58, NDVI 0.52, IRECI 0.50, PSSRa 0.34</td></tr><tr><th>Coursework</th><td>Explains the two inconsistent R² sets in the original report: one within-species, one pooled</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="lidar.html">Turning LiDAR into a forest inventory →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

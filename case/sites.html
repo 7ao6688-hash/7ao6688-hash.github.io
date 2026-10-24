@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finding quiet land with good motorway access · Xiaoqiao Liu</title>
+<meta name="description" content="A client wants places close to a motorway for easy access, but away from the loudest traffic noise, inside Hampshire's two national parks. I built a small tool that answers this from open government data, and that anyone can rerun by editing a short settings file.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/case.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">← All case studies</a>
+<p class="label">Site screening · Hampshire, UK</p>
+<h1>Finding quiet land with good motorway access</h1>
+<p class="lede">A client wants places close to a motorway for easy access, but away from the loudest traffic noise, inside Hampshire's two national parks. I built a small tool that answers this from open government data, and that anyone can rerun by editing a short settings file.</p>
+<div class="stats"><div><b>92.7 km²</b><span>New Forest, within 5 km</span></div><div><b>120.7 km²</b><span>South Downs, within 5 km</span></div><div><b>≤ 0.01%</b><span>difference from the ArcGIS original</span></div><div><b>0</b><span>commercial licences needed</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/hampshire-sites.webp" alt="Dark green: quiet land within 5 km of a motorway. Light green: within 10 km."></div><figcaption>Dark green: quiet land within 5 km of a motorway. Light green: within 10 km.</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>The question</h2>
+<p>Developers, planners and relocation advisers often ask the same kind of question: <b>which land is close enough to key infrastructure but outside a constraint zone?</b> Here the constraint is road noise of 75 decibels or more, the loudest band in the government's noise model.</p>
+</section>
+<section><h2>What I did</h2>
+<ol class="steps">
+<li><b>Selected the motorways</b> from Ordnance Survey's open road network.</li>
+<li><b>Drew a <span class="term" tabindex="0">buffer<span class="def" role="tooltip">A zone of fixed width drawn around a feature, for example all land within 5 km of a motorway.</span></span></b> of 5 km and 10 km around them, each merged into one zone.</li>
+<li><b>Removed the noisiest land:</b> every part of each park inside DEFRA's ≥ 75 dB road-noise zone.</li>
+<li><b>Overlapped</b> the remaining quiet land with each buffer and measured the area.</li>
+<li><b>Checked the answer</b> against my original ArcGIS version of the same analysis.</li></ol>
+</section>
+<section><h2>What the results show</h2>
+<p>Within 5 km of a motorway and below 75 dB, there are 92.7 km² in the New Forest (16% of the park) and 120.7 km² in the South Downs (7%). Within 10 km, that rises to 277 km² and 351 km². The open-source version agrees with ArcGIS to within 0.01%. The tiny gap comes from how each program draws the curved ends of buffers.</p>
+<p class="callout">Everything a client might want to change sits in one short settings file: the parks, distances, road types and noise bands. No programming is needed, and the tool explains mistakes in plain language. For example, if a road type is misspelt, it lists the ones it found.</p>
+</section>
+<section><h2>How sure can we be?</h2>
+<ul class="limits">
+<li><b>Noise is modelled, not measured</b>, at 4 m above ground. Land with no noise data counts as quiet, which is how the government data are meant to be read.</li>
+<li><b>Only two criteria are used.</b> Real site selection would add land ownership, protected habitats, flood risk and planning rules.</li></ul>
+</section>
+<section><h2>What a client gets</h2>
+<ul><li>Suitable-land layers (GeoPackage) and an area table</li><li>An overview map</li>
+<li>A reusable tool and settings file for new areas and criteria</li><li>Migration of existing ArcGIS/arcpy workflows to open-source Python, with checked results</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>Data</h3><ul><li>DEFRA road noise (LAeq,16h)</li><li>Natural England national parks</li><li>OS Open Roads</li></ul></div><div><h3>Methods</h3><ul><li>Buffer and overlay analysis</li><li>Constraint mapping</li><li>Validation against ArcGIS</li></ul></div><div><h3>Tools</h3><ul><li>Python, GeoPandas, Shapely</li><li>Originally ArcGIS Pro (arcpy)</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/quiet-zone-finder" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
+<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+</aside>
+</div>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Steps</th><td>select road class → dissolved buffer per distance → erase excluded noise classes → intersect → area</td></tr><tr><th>Validation</th><td>New Forest 5 km: 92.707 (ArcGIS) vs 92.719 km²; South Downs 10 km: 350.625 vs 350.636 km²</td></tr><tr><th>Licences</th><td>All inputs under the Open Government Licence v3.0; packaged example data included</td></tr><tr><th>Context</th><td>MSc GIS Programming coursework (University of Southampton, 2025), rewritten without arcpy</td></tr></table></div></details>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="chlorophyll.html">Which satellite index best tracks plant health? →</a></h2></div>
+<a href="../index.html#work">All case studies</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+</body>
+</html>

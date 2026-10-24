@@ -1,0 +1,67 @@
+{
+ "flood": {
+  "pre": {
+   "file": "lab/flood_pre.png",
+   "lo": -26.0,
+   "hi": 4.0,
+   "w": 663,
+   "h": 838
+  },
+  "post": {
+   "file": "lab/flood_post.png",
+   "lo": -26.0,
+   "hi": 4.0,
+   "w": 663,
+   "h": 838
+  },
+  "pixel_m": 30,
+  "otsu_db": -12.28,
+  "buildings": {
+   "file": "lab/flood_buildings.png",
+   "total": 79181
+  }
+ },
+ "insar": {
+  "los": {
+   "file": "lab/insar_los.png",
+   "lo": -6.0,
+   "hi": 18.0,
+   "w": 702,
+   "h": 447
+  },
+  "wavelength_cm": 5.547,
+  "lon0": -9.126691605298122,
+  "lat0": 31.132528600713155,
+  "deg": 0.0015069964729854505,
+  "km_per_px": 0.1438,
+  "epicentre": [
+   -8.396,
+   31.055
+  ]
+ },
+ "glasgow": {
+  "lst": {
+   "file": "lab/glasgow_lst.png",
+   "lo": 15.0,
+   "hi": 32.0,
+   "w": 674,
+   "h": 557
+  },
+  "ndvi": {
+   "file": "lab/glasgow_ndvi.png",
+   "lo": -0.2,
+   "hi": 1.0,
+   "w": 674,
+   "h": 557
+  },
+  "builtup": "lab/glasgow_builtup.png",
+  "slope": -8.736,
+  "ci": [
+   -10.125,
+   -7.087
+  ],
+  "lst_mean": 24.603,
+  "lst_sd": 2.481,
+  "pixel_m": 30
+ }
+}
