@@ -88,7 +88,7 @@ CASES = [
             ("What the maps show", """<div class="pair"><figure class="fig"><img src="../assets/turkiye-profile.webp" alt="Displacement profile across Kahramanmaraş" loading="lazy"></figure>
 <figure class="fig"><img src="../assets/morocco-los.webp" alt="Displacement map of the 2023 Al Haouz earthquake" loading="lazy"></figure></div>
 <figcaption>Left: a transect through Kahramanmaraş. Right: the Al Haouz earthquake in Morocco.</figcaption>
-<p><b>Türkiye.</b> Along a north-west to south-east line through Kahramanmaraş, the ground's movement changes by about 74 cm over just 10 km, 17 to 27 km south-east of the city. That's where the main rupture crossed. Statistics for the city district match the SNAP output from my MSc dissertation exactly.</p>
+<p><b>Türkiye.</b> Along a north-west to south-east line through Kahramanmaraş, the ground's movement changes by about 74 cm over just 10 km, 17 to 27 km south-east of the city. That's where the main rupture crossed. Statistics for the city district match my original SNAP processing exactly.</p>
 <p><b>Morocco.</b> An area just south of the epicentre moved up to about 15 cm towards the satellite, while the surrounding mountains barely moved.</p>"""),
             ("How sure can we be?", """<ul class="limits">
 <li><b>One viewing direction.</b> Radar only measures movement along its line of sight, so up-down and sideways motion can't be separated from one image pair.</li>
@@ -105,7 +105,7 @@ CASES = [
                  ("Türkiye grid", "8 × 8 block median (≈ 93 m); P1–P99 −36 to +94 cm (relative)"),
                  ("Morocco pair", "S1A orbit 45 ascending, 3 → 15 Sep 2023; sub-swath IW1; coherence ≥ 0.3 (13% masked)"),
                  ("Transects", "10 km swath perpendicular to the regional fault strike; 2 km (Türkiye) and 1 km (Morocco) bins"),
-                 ("Context", "Türkiye: MSc dissertation, University of Southampton, 2025")],
+                 ("Context", "Research project, 2025")],
     },
     {
         "slug": "wildfire", "repo": "wildfire-carbon-loss", "kicker": "Forest carbon · California, USA · 2020",
@@ -131,7 +131,7 @@ CASES = [
 <li><b>The biomass model is a simple assumption</b>, not calibrated with field measurements. It can be swapped for a published biomass map.</li>
 <li><b>Seasons differ.</b> The images are from July and June of different years, so some "low severity" pixels outside the fire are probably just seasonal change.</li>
 <li><b>Only living trees above ground are counted.</b> Soil, litter and later tree deaths are left out.</li>
-<li>My original coursework reported 4.5 Mt using a different burn layer. The difference is explained in the repository.</li></ul>"""),
+<li>An earlier version of this analysis gave 4.5 Mt using a different burn layer. The difference is explained in the repository.</li></ul>"""),
             ("What a client gets", """<ul><li>Burn-severity and carbon-loss maps (GeoTIFF)</li><li>Tables by severity class and by area of interest</li>
 <li>A sensitivity table showing the plausible range</li><li>Advice on where field plots would reduce uncertainty most</li></ul>"""),
         ],
@@ -213,7 +213,7 @@ CASES = [
                  ("Coefficients", "Domestic 0.2 m³/person/day; irrigation 4,000 m³/ha/yr (tested 3,000–6,000)"),
                  ("Classes", "Low < 0.1 ≤ moderate < 0.2 ≤ medium-high < 0.4 ≤ high"),
                  ("Extent", "Mainland and Balearic provinces (Canaries, Ceuta and Melilla excluded)"),
-                 ("Coursework", "Corrects the original: flow accumulation had been used as runoff, and population counts were treated as densities")],
+                 ("Earlier version", "Corrected here: flow accumulation had been used as runoff, and population counts were treated as densities")],
     },
     {
         "slug": "sites", "repo": "quiet-zone-finder", "kicker": "Site screening · Hampshire, UK",
@@ -244,7 +244,7 @@ CASES = [
         "tech": [("Steps", "select road class → dissolved buffer per distance → erase excluded noise classes → intersect → area"),
                  ("Validation", "New Forest 5 km: 92.707 (ArcGIS) vs 92.719 km²; South Downs 10 km: 350.625 vs 350.636 km²"),
                  ("Licences", "All inputs under the Open Government Licence v3.0; packaged example data included"),
-                 ("Context", "MSc GIS Programming coursework (University of Southampton, 2025), rewritten without arcpy")],
+                 ("Context", "Research project, first built in ArcGIS Pro (arcpy) and rewritten in open-source Python")],
     },
     {
         "slug": "chlorophyll", "repo": "leaf-chlorophyll-indices", "kicker": "Vegetation health · lab and satellite",
@@ -268,7 +268,7 @@ CASES = [
             ("How sure can we be?", """<ul class="limits">
 <li><b>Single leaves under lab light</b> are cleaner than real 20 m pixels, which mix leaves, branches, soil and shadow.</li>
 <li><b>One region and one season</b> (New Forest, April to October 2016) for the satellite part, so the models need recalibrating elsewhere.</li>
-<li>The original lab data are course data and aren't redistributed. Results and code are public.</li></ul>"""),
+<li>The lab measurements belong to a dataset that can't be redistributed. Results and code are public.</li></ul>"""),
             ("What a client gets", """<ul><li>A recommendation of which index to use for a crop, forest or habitat</li><li>Calibrated index-to-chlorophyll models with error estimates</li>
 <li>Seasonal vigour maps from Sentinel-2</li><li>Guidance on how many field samples are needed</li></ul>"""),
         ],
@@ -279,7 +279,7 @@ CASES = [
                  ("Lab results", "Within-species R²: MTCI 0.75, IRECI 0.63, GNDVI 0.60, NDVI 0.20, PSSRa 0.14"),
                  ("Transfer test", "Leave-one-species-out RMSE: IRECI 37.4, MTCI 40.3, NDVI 57.0 µg/cm²"),
                  ("Satellite", "R² for CCC: MTCI 0.76, GNDVI 0.58, NDVI 0.52, IRECI 0.50, PSSRa 0.34"),
-                 ("Coursework", "Explains the two inconsistent R² sets in the original report: one within-species, one pooled")],
+                 ("Earlier version", "Explains two inconsistent R² sets in the first write-up: one within-species, one pooled")],
     },
     {
         "slug": "lidar", "repo": "new-forest-lidar-inventory", "kicker": "LiDAR forest inventory · New Forest, UK",
@@ -296,7 +296,7 @@ CASES = [
 <li><b>Summarised each forest compartment</b>: canopy cover, the share of trees in each height class, and the 95th-percentile height, which ignores stray tall pixels.</li>
 <li><b>Tested how stable the results are</b> if the elevation models are off by a few tens of centimetres, or if the height thresholds change.</li>
 <li><b>Ranked compartments for field checks</b> with a transparent score, so foresters know where to look first.</li></ol>"""),
-            ("What it produces", """<p>In my MSc coursework I applied this to 15 compartments of the New Forest, combining LiDAR with airborne multispectral imagery to classify the canopy. The public version rebuilds the workflow as tested, reusable code. Because the original survey data are licensed, it ships with a <b>synthetic scene</b> with the same structure, so anyone can run it and see the outputs.</p>
+            ("What it produces", """<p>In the original research project I applied this to 15 compartments of the New Forest, combining LiDAR with airborne multispectral imagery to classify the canopy. The public version rebuilds the workflow as tested, reusable code. Because the original survey data are licensed, it ships with a <b>synthetic scene</b> with the same structure, so anyone can run it and see the outputs.</p>
 <p class="callout">The ranking is a list of where to send field teams first. It doesn't decide where to harvest. In a protected landscape like the New Forest, that decision also depends on habitats, access and permissions.</p>"""),
             ("How sure can we be?", """<ul class="limits">
 <li><b>The public results are a demonstration</b>, not field measurements.</li>
@@ -305,13 +305,13 @@ CASES = [
             ("What a client gets", """<ul><li>Canopy height and cover maps</li><li>A compartment table with height classes and P95 height</li>
 <li>A prioritised list for field validation</li><li>A data guide for preparing your own LiDAR (LAS/LAZ or GeoTIFF) in PDAL, QGIS or ArcGIS</li></ul>"""),
         ],
-        "glance": [("Data", ["Airborne LiDAR (DSM, DTM)", "Forest mask and compartments", "CASI multispectral (coursework)"]),
+        "glance": [("Data", ["Airborne LiDAR (DSM, DTM)", "Forest mask and compartments", "CASI multispectral (original study)"]),
                    ("Methods", ["Canopy height model", "Zonal statistics", "Sensitivity to vertical bias", "Priority scoring"]),
-                   ("Tools", ["Python, NumPy", "ArcGIS (coursework)"])],
+                   ("Tools", ["Python, NumPy", "ArcGIS (original study)"])],
         "tech": [("CHM", "max(DSM − DTM, 0) on a common grid and vertical datum"),
                  ("Metrics", "Canopy cover, share in 2–10 / 10–15 / ≥ 15 m classes, P95 height per compartment"),
                  ("Sensitivity", "Vertical bias and threshold scenarios; rank stability reported"),
-                 ("Coursework", "Ground points from first/last-return differences, IDW DTM, TIN-to-raster DSM, 15 compartments")],
+                 ("Original study", "Ground points from first/last-return differences, IDW DTM, TIN-to-raster DSM, 15 compartments")],
     },
 ]
 

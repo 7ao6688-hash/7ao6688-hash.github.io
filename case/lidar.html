@@ -36,7 +36,7 @@
 <li><b>Ranked compartments for field checks</b> with a transparent score, so foresters know where to look first.</li></ol>
 </section>
 <section><h2>What it produces</h2>
-<p>In my MSc coursework I applied this to 15 compartments of the New Forest, combining LiDAR with airborne multispectral imagery to classify the canopy. The public version rebuilds the workflow as tested, reusable code. Because the original survey data are licensed, it ships with a <b>synthetic scene</b> with the same structure, so anyone can run it and see the outputs.</p>
+<p>In the original research project I applied this to 15 compartments of the New Forest, combining LiDAR with airborne multispectral imagery to classify the canopy. The public version rebuilds the workflow as tested, reusable code. Because the original survey data are licensed, it ships with a <b>synthetic scene</b> with the same structure, so anyone can run it and see the outputs.</p>
 <p class="callout">The ranking is a list of where to send field teams first. It doesn't decide where to harvest. In a protected landscape like the New Forest, that decision also depends on habitats, access and permissions.</p>
 </section>
 <section><h2>How sure can we be?</h2>
@@ -50,12 +50,12 @@
 <li>A prioritised list for field validation</li><li>A data guide for preparing your own LiDAR (LAS/LAZ or GeoTIFF) in PDAL, QGIS or ArcGIS</li></ul>
 </section>
 </article>
-<aside class="glance"><div><h3>Data</h3><ul><li>Airborne LiDAR (DSM, DTM)</li><li>Forest mask and compartments</li><li>CASI multispectral (coursework)</li></ul></div><div><h3>Methods</h3><ul><li>Canopy height model</li><li>Zonal statistics</li><li>Sensitivity to vertical bias</li><li>Priority scoring</li></ul></div><div><h3>Tools</h3><ul><li>Python, NumPy</li><li>ArcGIS (coursework)</li></ul></div>
+<aside class="glance"><div><h3>Data</h3><ul><li>Airborne LiDAR (DSM, DTM)</li><li>Forest mask and compartments</li><li>CASI multispectral (original study)</li></ul></div><div><h3>Methods</h3><ul><li>Canopy height model</li><li>Zonal statistics</li><li>Sensitivity to vertical bias</li><li>Priority scoring</li></ul></div><div><h3>Tools</h3><ul><li>Python, NumPy</li><li>ArcGIS (original study)</li></ul></div>
 <a class="btn" href="https://github.com/7ao6688-hash/new-forest-lidar-inventory" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
 <a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
 </aside>
 </div>
-<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>CHM</th><td>max(DSM − DTM, 0) on a common grid and vertical datum</td></tr><tr><th>Metrics</th><td>Canopy cover, share in 2–10 / 10–15 / ≥ 15 m classes, P95 height per compartment</td></tr><tr><th>Sensitivity</th><td>Vertical bias and threshold scenarios; rank stability reported</td></tr><tr><th>Coursework</th><td>Ground points from first/last-return differences, IDW DTM, TIN-to-raster DSM, 15 compartments</td></tr></table></div></details>
+<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>CHM</th><td>max(DSM − DTM, 0) on a common grid and vertical datum</td></tr><tr><th>Metrics</th><td>Canopy cover, share in 2–10 / 10–15 / ≥ 15 m classes, P95 height per compartment</td></tr><tr><th>Sensitivity</th><td>Vertical bias and threshold scenarios; rank stability reported</td></tr><tr><th>Original study</th><td>Ground points from first/last-return differences, IDW DTM, TIN-to-raster DSM, 15 compartments</td></tr></table></div></details>
 <div class="next"><div><p class="label">Next case study</p><h2><a href="valencia.html">Mapping the Valencia DANA flood from space →</a></h2></div>
 <a href="../index.html#work">All case studies</a></div>
 </main>
