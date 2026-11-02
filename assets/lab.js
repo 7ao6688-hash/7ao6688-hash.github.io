@@ -128,7 +128,7 @@
       ctx.fillStyle = "#fff";
       for (const [lbl, p] of [["A", line[0]], ["B", line[1]]]) {
         ctx.beginPath(); ctx.arc(p[0], p[1], 5, 0, Math.PI * 2); ctx.fill();
-        ctx.font = "bold 13px IBM Plex Mono, monospace"; ctx.fillText(lbl, p[0] + 7, p[1] - 6);
+        ctx.font = "bold 13px Archivo, system-ui, sans-serif"; ctx.fillText(lbl, p[0] + 7, p[1] - 6);
       }
       ctx.strokeStyle = "#111"; ctx.lineWidth = 1.5; ctx.strokeRect(ep[0] - 4, ep[1] - 4, 8, 8);
       $("insar-legend").className = "cbar" + (mode === "wrapped" ? " cyc" : "");

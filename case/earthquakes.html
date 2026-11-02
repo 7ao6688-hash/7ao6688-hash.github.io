@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Measuring how far the ground moved in two earthquakes · Xiaoqiao Liu</title>
+<title>Measuring how far the ground moved in two earthquakes, Xiaoqiao Liu</title>
 <meta name="description" content="Radar satellites can measure ground movement of a few centimetres over thousands of square kilometres. I used them to map the 2023 earthquakes in Türkiye and Morocco, and turned the results into figures that show exactly where the ground shifted most.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=4">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
 <nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
 <main class="wrap">
 <div class="case-head">
-<a class="back" href="../index.html#work">← All case studies</a>
-<p class="label">Ground deformation · Türkiye and Morocco · 2023</p>
+<a class="back" href="../index.html#work">Back to all case studies</a>
+<p class="label">Ground deformation, Türkiye and Morocco, 2023</p>
 <h1>Measuring how far the ground moved in two earthquakes</h1>
 <p class="lede">Radar satellites can measure ground movement of a few centimetres over thousands of square kilometres. I used them to map the 2023 earthquakes in Türkiye and Morocco, and turned the results into figures that show exactly where the ground shifted most.</p>
 <div class="stats"><div><b>≈ 74 cm</b><span>change across 10 km near Kahramanmaraş</span></div><div><b>≈ 15 cm</b><span>uplift towards the satellite in Morocco</span></div><div><b>2</b><span>earthquakes, two radar geometries</span></div><div><b>Exact</b><span>match with my original SNAP statistics</span></div></div>
@@ -55,14 +56,14 @@
 </section>
 </article>
 <aside class="glance"><div><h3>Data</h3><ul><li>Sentinel-1 IW SLC (C-band)</li><li>SRTM 1-arcsec DEM</li></ul></div><div><h3>Methods</h3><ul><li>Differential InSAR</li><li>Phase unwrapping</li><li>Coherence masking</li><li>Transect statistics</li></ul></div><div><h3>Tools</h3><ul><li>ESA SNAP, SNAPHU</li><li>Python, NumPy, matplotlib</li></ul></div>
-<a class="btn" href="https://github.com/7ao6688-hash/insar-deformation-monitoring" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
-<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+<a class="btn" href="https://github.com/7ao6688-hash/insar-deformation-monitoring" target="_blank" rel="noopener">Code and data on GitHub</a>
+<a class="btn primary" href="../index.html#contact">Discuss a similar project</a>
 </aside>
 </div>
 <details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Türkiye pair</th><td>S1A orbit 21 descending, 29 Jan → 10 Feb 2023; TOPS chain with ESD; SNAPHU v2.0.4</td></tr><tr><th>Türkiye grid</th><td>8 × 8 block median (≈ 93 m); P1–P99 −36 to +94 cm (relative)</td></tr><tr><th>Morocco pair</th><td>S1A orbit 45 ascending, 3 → 15 Sep 2023; sub-swath IW1; coherence ≥ 0.3 (13% masked)</td></tr><tr><th>Transects</th><td>10 km swath perpendicular to the regional fault strike; 2 km (Türkiye) and 1 km (Morocco) bins</td></tr><tr><th>Context</th><td>Research project, 2025</td></tr></table></div></details>
-<div class="next"><div><p class="label">Next case study</p><h2><a href="wildfire.html">How much carbon did a wildfire release? →</a></h2></div>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="wildfire.html">How much carbon did a wildfire release?</a></h2></div>
 <a href="../index.html#work">All case studies</a></div>
 </main>
-<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.</div></footer>
 </body>
 </html>

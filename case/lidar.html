@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Turning LiDAR into a forest inventory · Xiaoqiao Liu</title>
+<title>Turning LiDAR into a forest inventory, Xiaoqiao Liu</title>
 <meta name="description" content="Airborne laser scanning measures the height of every tree from above. This project turns LiDAR elevation models into canopy height, stand statistics and a ranked list of the forest areas that most need checking on the ground.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=4">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
 <nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
 <main class="wrap">
 <div class="case-head">
-<a class="back" href="../index.html#work">← All case studies</a>
-<p class="label">LiDAR forest inventory · New Forest, UK</p>
+<a class="back" href="../index.html#work">Back to all case studies</a>
+<p class="label">LiDAR forest inventory, New Forest, UK</p>
 <h1>Turning LiDAR into a forest inventory</h1>
 <p class="lede">Airborne laser scanning measures the height of every tree from above. This project turns LiDAR elevation models into canopy height, stand statistics and a ranked list of the forest areas that most need checking on the ground.</p>
 <div class="stats"><div><b>3</b><span>height classes: 2–10, 10–15, ≥ 15 m</span></div><div><b>P95</b><span>robust top-of-canopy height</span></div><div><b>15</b><span>forest compartments in the original study</span></div><div><b>Demo</b><span>published with synthetic data</span></div></div>
@@ -51,14 +52,14 @@
 </section>
 </article>
 <aside class="glance"><div><h3>Data</h3><ul><li>Airborne LiDAR (DSM, DTM)</li><li>Forest mask and compartments</li><li>CASI multispectral (original study)</li></ul></div><div><h3>Methods</h3><ul><li>Canopy height model</li><li>Zonal statistics</li><li>Sensitivity to vertical bias</li><li>Priority scoring</li></ul></div><div><h3>Tools</h3><ul><li>Python, NumPy</li><li>ArcGIS (original study)</li></ul></div>
-<a class="btn" href="https://github.com/7ao6688-hash/new-forest-lidar-inventory" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
-<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+<a class="btn" href="https://github.com/7ao6688-hash/new-forest-lidar-inventory" target="_blank" rel="noopener">Code and data on GitHub</a>
+<a class="btn primary" href="../index.html#contact">Discuss a similar project</a>
 </aside>
 </div>
 <details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>CHM</th><td>max(DSM − DTM, 0) on a common grid and vertical datum</td></tr><tr><th>Metrics</th><td>Canopy cover, share in 2–10 / 10–15 / ≥ 15 m classes, P95 height per compartment</td></tr><tr><th>Sensitivity</th><td>Vertical bias and threshold scenarios; rank stability reported</td></tr><tr><th>Original study</th><td>Ground points from first/last-return differences, IDW DTM, TIN-to-raster DSM, 15 compartments</td></tr></table></div></details>
-<div class="next"><div><p class="label">Next case study</p><h2><a href="valencia.html">Mapping the Valencia DANA flood from space →</a></h2></div>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="valencia.html">Mapping the Valencia DANA flood from space</a></h2></div>
 <a href="../index.html#work">All case studies</a></div>
 </main>
-<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.</div></footer>
 </body>
 </html>

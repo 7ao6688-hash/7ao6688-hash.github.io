@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Finding where greening would cool Glasgow most · Xiaoqiao Liu</title>
+<title>Finding where greening would cool Glasgow most, Xiaoqiao Liu</title>
 <meta name="description" content="Cities heat up unevenly. Using a single Landsat image from a sunny June morning, I mapped Glasgow's surface temperature, measured how much cooler greener places are, and pinpointed the hot, bare neighbourhoods where planting would help most.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=4">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
 <nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
 <main class="wrap">
 <div class="case-head">
-<a class="back" href="../index.html#work">← All case studies</a>
-<p class="label">Urban heat · Glasgow, UK · June 2019</p>
+<a class="back" href="../index.html#work">Back to all case studies</a>
+<p class="label">Urban heat, Glasgow, UK, June 2019</p>
 <h1>Finding where greening would cool Glasgow most</h1>
 <p class="lede">Cities heat up unevenly. Using a single Landsat image from a sunny June morning, I mapped Glasgow's surface temperature, measured how much cooler greener places are, and pinpointed the hot, bare neighbourhoods where planting would help most.</p>
 <div class="stats"><div><b>4.6 °C</b><span>hotter: built-up land vs grassland</span></div><div><b>0.9 °C</b><span>cooler for each +0.1 NDVI</span></div><div><b>25.5 km²</b><span>hot, bare built-up land to prioritise</span></div><div><b>203 km²</b><span>of the city analysed at 30 m</span></div></div>
@@ -54,14 +55,14 @@
 </section>
 </article>
 <aside class="glance"><div><h3>Data</h3><ul><li>Landsat 8 OLI/TIRS, 28 Jun 2019</li><li>Glasgow city boundary</li></ul></div><div><h3>Methods</h3><ul><li>Land-surface temperature retrieval</li><li>Supervised classification</li><li>Regression with bootstrap</li><li>Priority screening</li></ul></div><div><h3>Tools</h3><ul><li>ENVI, ArcGIS Pro</li><li>Python, NumPy</li></ul></div>
-<a class="btn" href="https://github.com/7ao6688-hash/urban-heat-intervention-explorer" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
-<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+<a class="btn" href="https://github.com/7ao6688-hash/urban-heat-intervention-explorer" target="_blank" rel="noopener">Code and data on GitHub</a>
+<a class="btn primary" href="../index.html#contact">Discuss a similar project</a>
 </aside>
 </div>
 <details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>LST</th><td>TIRS band 10: radiance → brightness temperature → NDVI-based emissivity → Sobrino correction</td></tr><tr><th>Land cover</th><td>Maximum-likelihood classification: built-up 121 km², forest 59 km², grassland 21 km², water 1 km²</td></tr><tr><th>Regression</th><td>LST = −8.74 × NDVI + 29.5 °C; R² = 0.46; n = 200; bootstrap 95% CI −10.1 to −7.1</td></tr><tr><th>Priority</th><td>built-up, ≥ 0.35 SD above the city mean LST, NDVI < 0.35</td></tr><tr><th>Scenarios</th><td>+0.05 → 0.44 °C · +0.10 → 0.87 °C · +0.15 → 1.31 °C</td></tr></table></div></details>
-<div class="next"><div><p class="label">Next case study</p><h2><a href="spain.html">Which Spanish provinces need more water than they generate? →</a></h2></div>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="spain.html">Which Spanish provinces need more water than they generate?</a></h2></div>
 <a href="../index.html#work">All case studies</a></div>
 </main>
-<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.</div></footer>
 </body>
 </html>

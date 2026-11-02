@@ -320,15 +320,16 @@ HEAD = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{title} · Xiaoqiao Liu</title>
+<title>{title}, Xiaoqiao Liu</title>
 <meta name="description" content="{lede_attr}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=4">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
 <nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
 """
 
@@ -340,10 +341,11 @@ def page(c, others):
     tech = "".join(f"<tr><th>{k}</th><td>{v}</td></tr>" for k, v in c["tech"])
     nxt = others[(others.index(c) + 1) % len(others)]
     img, cap = c["hero"]
+    kicker = ", ".join(c["kicker"].split(" · "))
     return HEAD.format(title=c["title"], lede_attr=c["lede"].replace('"', "&quot;")) + f"""<main class="wrap">
 <div class="case-head">
-<a class="back" href="../index.html#work">← All case studies</a>
-<p class="label">{c["kicker"]}</p>
+<a class="back" href="../index.html#work">Back to all case studies</a>
+<p class="label">{kicker}</p>
 <h1>{c["title"]}</h1>
 <p class="lede">{c["lede"]}</p>
 <div class="stats">{stats}</div>
@@ -354,15 +356,15 @@ def page(c, others):
 {sections}
 </article>
 <aside class="glance">{glance}
-<a class="btn" href="https://github.com/7ao6688-hash/{c["repo"]}" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
-<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+<a class="btn" href="https://github.com/7ao6688-hash/{c["repo"]}" target="_blank" rel="noopener">Code and data on GitHub</a>
+<a class="btn primary" href="../index.html#contact">Discuss a similar project</a>
 </aside>
 </div>
 <details class="tech"><summary>Technical details</summary><div class="table-wrap"><table>{tech}</table></div></details>
-<div class="next"><div><p class="label">Next case study</p><h2><a href="{nxt["slug"]}.html">{nxt["title"]} →</a></h2></div>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="{nxt["slug"]}.html">{nxt["title"]}</a></h2></div>
 <a href="../index.html#work">All case studies</a></div>
 </main>
-<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.</div></footer>
 </body>
 </html>
 """

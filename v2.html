@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xiaoqiao Liu, Earth observation</title>
+<meta name="description" content="Remote sensing and GIS analyst: flood mapping, InSAR ground deformation, forest carbon, urban heat and GIS automation from satellite radar, LiDAR and optical data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="stylesheet" href="assets/v2.css?v=3">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<meta property="og:title" content="Xiaoqiao Liu, Earth observation">
+<meta property="og:description" content="Flood mapping, InSAR ground deformation, forest carbon and urban heat from satellite radar, LiDAR and optical data.">
+<meta property="og:image" content="https://7ao6688-hash.github.io/assets/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Xiaoqiao Liu <span>Earth observation</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#work" data-zh="案例">Work</a>
+      <a href="#lab" data-zh="互动工具">Lab</a>
+      <a href="#services" data-zh="服务">Services</a>
+      <a href="#about" data-zh="关于我">About</a>
+      <a href="#contact" data-zh="联系">Contact</a>
+      <button class="lang" id="lang" type="button" aria-label="Switch language">中文</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero wrap">
+    <div class="hero-text">
+      <h1 data-zh="把卫星数据变成可以据此决策的答案。">Satellite data turned into answers you can act on.</h1>
+      <div class="hero-side">
+        <p class="label" data-zh="遥感与 GIS 分析师，常驻英国">Remote sensing and GIS analyst, based in the UK</p>
+        <p class="lede" data-zh="我用雷达、LiDAR 和光学卫星影像绘制洪水范围、测量地表形变、估算森林碳储量、定位城市热点。每个结果都附带地图、可直接使用的数据和一份简明报告。">I map floods, measure ground movement, estimate forest carbon and find urban hot spots from radar, LiDAR and optical satellite imagery. Every result comes with maps, ready-to-use data and a short plain-language report.</p>
+        <div class="cta">
+          <a class="btn primary" href="#contact" data-zh="咨询项目">Discuss a project</a>
+          <a class="btn" href="#work" data-zh="查看案例">See the work</a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero-img" aria-label="Before and after comparison of the October 2024 Valencia flood">
+      <div class="stage" id="stage" tabindex="0" role="slider" aria-label="Before/after divider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55">
+        <img draggable="false" id="img-before" src="assets/slider-optical-pre.webp" alt="Landsat image before the flood">
+        <img draggable="false" id="img-after" class="after" src="assets/slider-optical-post.webp" alt="Landsat image the day after the flood">
+        <span class="tag-date l" id="date-before">28 Sep</span>
+        <span class="tag-date r" id="date-after">30 Oct</span>
+        <div class="handle"></div>
+      </div>
+      <input class="sr" type="range" id="cut" min="0" max="100" value="55" aria-label="Move the divider between before and after">
+      <figcaption>
+        <p id="compare-cap" data-zh="瓦伦西亚，2024 年 10 月。Landsat 8 真彩色：洪水后一天，阿尔武费拉潟湖周边的农田被褐色洪水覆盖。左右拖动影像对比洪水前后。">Valencia, October 2024. Landsat 8 true colour: the day after the flood, brown water covers the fields around the Albufera lagoon. Drag across the image to compare.</p>
+        <div class="seg" role="group" aria-label="Sensor">
+          <button type="button" id="mode-optical" aria-pressed="true" data-zh="光学">Optical</button>
+          <button type="button" id="mode-radar" aria-pressed="false" data-zh="雷达">Radar</button>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-zh="作品">Work</h2>
+        <p data-zh="八个研究项目，每个都有公开的代码、测试和结果。点任意一张图看完整案例。">Eight research projects, each with public code, tests and results. Open any image for the full case study.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter case studies">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true" data-zh="全部">All</button>
+        <button class="chip" type="button" data-filter="radar" aria-pressed="false" data-zh="雷达">Radar</button>
+        <button class="chip" type="button" data-filter="optical" aria-pressed="false" data-zh="光学 / 热红外">Optical &amp; thermal</button>
+        <button class="chip" type="button" data-filter="lidar" aria-pressed="false">LiDAR</button>
+        <button class="chip" type="button" data-filter="gis" aria-pressed="false" data-zh="GIS 与水资源">GIS &amp; water</button>
+      </div>
+      <div class="mosaic" id="cases">
+        <a class="case t-valencia" href="case/valencia.html" data-tags="radar optical">
+          <div class="ph"><img src="assets/tiles/valencia.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="洪水制图，瓦伦西亚，2024">Flood mapping, Valencia, 2024</p>
+            <h3 data-zh="瓦伦西亚 DANA 洪水">Valencia DANA flood</h3>
+            <p class="key" data-zh="洪水后一天积水 67 km²；雷达跟踪到一周后退至 14 km²。">67 km² of standing water the day after; radar tracks it draining to 14 km² a week later.</p>
+          </div>
+        </a>
+        <a class="case t-earthquakes" href="case/earthquakes.html" data-tags="radar">
+          <div class="ph"><img src="assets/tiles/earthquakes.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="InSAR，土耳其与摩洛哥，2023">InSAR, Türkiye and Morocco, 2023</p>
+            <h3 data-zh="地震引起的地表形变">Earthquake ground deformation</h3>
+            <p class="key" data-zh="卡赫拉曼马拉什破裂带 10 km 范围内视线向位移变化约 74 cm。">About 74 cm of line-of-sight change across 10 km of the Kahramanmaraş rupture.</p>
+          </div>
+        </a>
+        <a class="case t-wildfire" href="case/wildfire.html" data-tags="optical">
+          <div class="ph"><img src="assets/tiles/wildfire.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="森林碳储量，美国加州，2020">Forest carbon, California, 2020</p>
+            <h3 data-zh="野火碳损失">Wildfire carbon loss</h3>
+            <p class="key" data-zh="约 680 万吨碳；10% 的高强度火烧区贡献了 58% 的损失。">6.8 million tonnes of carbon; 10% of the area burned hot and caused 58% of the loss.</p>
+          </div>
+        </a>
+        <a class="case t-chlorophyll" href="case/chlorophyll.html" data-tags="optical">
+          <div class="ph"><img src="assets/tiles/chlorophyll.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="植被健康">Vegetation health</p>
+            <h3 data-zh="哪个植被指数最能反映叶绿素">Which index tracks chlorophyll</h3>
+            <p class="key" data-zh="红边指数 MTCI 能解释约 75% 的叶绿素变化，NDVI 只有约 20%。">The red-edge MTCI explains about 75% of chlorophyll variation; NDVI about 20%.</p>
+          </div>
+        </a>
+        <a class="case t-glasgow" href="case/glasgow.html" data-tags="optical">
+          <div class="ph"><img src="assets/tiles/glasgow.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="城市热岛，格拉斯哥，2019">Urban heat, Glasgow, 2019</p>
+            <h3 data-zh="格拉斯哥绿化降温优先区">Where greening cools Glasgow</h3>
+            <p class="key" data-zh="25.5 km² 炎热且缺少绿化的建成区被列为优先区。">25.5 km² of hot, bare built-up land flagged first for street trees and green roofs.</p>
+          </div>
+        </a>
+        <a class="case t-spain" href="case/spain.html" data-tags="gis">
+          <div class="ph"><img src="assets/tiles/spain.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="水资源，西班牙">Water resources, Spain</p>
+            <h3 data-zh="西班牙各省水资源压力">Water stress across Spain</h3>
+            <p class="key" data-zh="50 个省中 19 个处于高压力，涵盖约三分之二人口。">19 of 50 provinces, home to two-thirds of the population, are under high stress.</p>
+          </div>
+        </a>
+        <a class="case t-sites" href="case/sites.html" data-tags="gis">
+          <div class="ph"><img src="assets/tiles/sites.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="选址筛选，英国汉普郡">Site screening, Hampshire, UK</p>
+            <h3 data-zh="安静又交通便利的选址">Quiet sites with good access</h3>
+            <p class="key" data-zh="距高速 5 km 内的安静土地共 213 km²，与原 ArcGIS 结果一致。">213 km² of quiet land within 5 km of a motorway, matching the original ArcGIS output.</p>
+          </div>
+        </a>
+        <a class="case t-lidar" href="case/lidar.html" data-tags="lidar">
+          <div class="ph"><img src="assets/tiles/lidar.webp" alt="" loading="lazy"></div>
+          <div class="cap">
+            <p class="label" data-zh="LiDAR，英国 New Forest，合成数据演示">LiDAR, New Forest, UK. Synthetic demo</p>
+            <h3 data-zh="LiDAR 森林清查流程">LiDAR forest inventory workflow</h3>
+            <p class="key" data-zh="林冠高度、林分指标，以及最需要实地核查的林区排序。">Canopy height, stand metrics and a ranked list of compartments for field checks.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lab">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-zh="互动工具">Lab</h2>
+        <p data-zh="三个用真实项目数据做的小工具。每个都展示一个分析中的关键判断，以及这个判断如何改变结果。">Three working tools built on real project data. Each one shows a judgement call inside an analysis, and how much that call changes the answer.</p>
+      </div>
+      <p class="tool-status" hidden></p>
+      <div class="lab">
+        <div class="tool">
+          <div class="map">
+            <canvas id="flood-canvas" aria-label="Sentinel-1 radar image of Valencia with flooded pixels in blue"></canvas>
+            <div class="hover" id="flood-hover"></div>
+          </div>
+          <div class="side">
+            <p class="label" data-zh="瓦伦西亚雷达影像，2024 年 11 月 1 日">Valencia radar, 1 November 2024</p>
+            <h3 data-zh="一个阈值能让洪水面积变多少？">How much does one threshold change a flood map?</h3>
+            <p data-zh="水面在雷达上是暗的。比阈值更暗、且比洪水前暗了足够多的像元会被判为洪水（蓝色）。拖动滑块，看看面积和受影响建筑数如何变化。">Water looks dark to radar. A pixel counts as flooded (blue) when it's darker than the threshold and has darkened enough since before the flood. Move the sliders and watch the area and building count change.</p>
+            <div class="ctrl"><label for="flood-thr"><span data-zh="水体阈值（越低越严格）">Water threshold (lower = stricter)</span><b id="flood-thr-v">−12.3 dB</b></label><input type="range" id="flood-thr" min="-20" max="-6" step="0.1" value="-12.3"></div>
+            <div class="ctrl"><label for="flood-drop"><span data-zh="与洪水前相比至少变暗">Must have darkened by at least</span><b id="flood-drop-v">3.0 dB</b></label><input type="range" id="flood-drop" min="0" max="8" step="0.5" value="3"></div>
+            <svg class="chart" id="flood-hist" viewBox="0 0 300 70" aria-label="Histogram of radar brightness after the flood"></svg>
+            <div class="readout two">
+              <div><b id="flood-area">–</b><span data-zh="洪水面积（km²）">flooded area (km²)</span></div>
+              <div><b id="flood-bld">–</b><span data-zh="位于洪水像元中的 OSM 建筑">OSM buildings in flooded pixels</span></div>
+            </div>
+            <button class="linkbtn" type="button" id="flood-reset" data-zh="恢复为自动（Otsu）阈值">Reset to the automatic (Otsu) threshold</button>
+            <p class="how" data-zh="我的做法：用 Otsu 方法从数据本身找阈值，再报告阈值上下浮动时结果的范围，而不是只给一个数字。">How I handle it: pick the threshold from the data itself (Otsu's method), then report how the result moves when it changes, rather than a single number.</p>
+          </div>
+        </div>
+
+        <div class="tool">
+          <div class="map">
+            <canvas id="insar-canvas" aria-label="Sentinel-1 ground displacement map of the 2023 Morocco earthquake; drag to draw a profile line"></canvas>
+            <div class="cbar" id="insar-legend"></div>
+            <div class="hover" id="insar-hover"></div>
+          </div>
+          <div class="side">
+            <p class="label" data-zh="摩洛哥 2023 年地震，Sentinel-1">Morocco earthquake, September 2023, Sentinel-1</p>
+            <h3 data-zh="从干涉条纹到可测量的地表位移">From radar fringes to measured ground movement</h3>
+            <p data-zh="卫星记录的是重复的彩色条纹，每一圈代表 2.8 cm 的位移。解缠之后才能得到连续的位移图。在地图上按住拖动画一条线，下方会实时画出这条线上的位移剖面。">The satellite records repeating colour fringes, each one 2.8 cm of movement. Unwrapping turns them into a continuous displacement map. Press and drag across the map to draw a line; its displacement profile appears below.</p>
+            <div class="seg" role="group" aria-label="Map layer">
+              <button type="button" id="insar-wrapped" aria-pressed="false" data-zh="卫星记录的条纹">What the satellite records</button>
+              <button type="button" id="insar-unwrapped" aria-pressed="true" data-zh="交付的位移图">What I deliver</button>
+            </div>
+            <svg class="chart" id="insar-profile" viewBox="0 0 520 170" aria-label="Displacement profile along the drawn line"></svg>
+            <div class="readout">
+              <div><b id="insar-max">–</b><span data-zh="剖面最大位移">peak on the line</span></div>
+              <div><b id="insar-range">–</b><span data-zh="剖面位移变化">change along the line</span></div>
+              <div><b id="insar-fr">–</b><span data-zh="对应条纹数">fringes it spans</span></div>
+            </div>
+            <p class="how" data-zh="剖面中的虚线段穿过深灰色区域：那里两次雷达成像差异太大（相干性低于 0.3），测量不可靠，所以不画数值，也不做插值。浅色粗线是整体趋势。黑框是 USGS 公布的震中。">Dashed stretches of the profile cross the dark grey areas, where the two radar images differ too much (coherence below 0.3) for a reliable measurement. They are left unmeasured rather than filled in. The light band shows the overall trend. The square marks the USGS epicentre.</p>
+          </div>
+        </div>
+
+        <div class="tool">
+          <div class="map">
+            <canvas id="green-canvas" aria-label="Glasgow land-surface temperature map with selected priority areas in cyan"></canvas>
+            <div class="cbar" id="green-legend"></div>
+            <div class="hover" id="green-hover"></div>
+          </div>
+          <div class="side">
+            <p class="label" data-zh="格拉斯哥，Landsat 8，2019 年 6 月 28 日">Glasgow, Landsat 8, 28 June 2019</p>
+            <h3 data-zh="绿化应该先做在哪里，能降温多少？">Where should greening go first, and what will it buy?</h3>
+            <p data-zh="青色区域是最热、且几乎没有植被的建成区。选择要覆盖多少最热的土地，以及绿化强度，看面积和预计降温。">Cyan marks the hottest built-up land with little vegetation. Choose how much of it to target and how much greener it gets, and see the area and the expected surface cooling.</p>
+            <div class="seg" role="group" aria-label="Map layer">
+              <button type="button" id="green-view-lst" aria-pressed="true" data-zh="地表温度">Surface temperature</button>
+              <button type="button" id="green-view-ndvi" aria-pressed="false" data-zh="植被（NDVI）">Vegetation (NDVI)</button>
+            </div>
+            <div class="ctrl"><label for="green-share"><span data-zh="覆盖最热低植被建成区的比例">Share of the hottest, barest built-up land</span><b id="green-share-v">20%</b></label><input type="range" id="green-share" min="5" max="100" step="5" value="20"></div>
+            <div class="ctrl"><label for="green-ndvi"><span data-zh="NDVI 提升（行道树、绿色屋顶等）">NDVI increase (street trees, green roofs…)</span><b id="green-ndvi-v">+0.10</b></label><input type="range" id="green-ndvi" min="0.05" max="0.30" step="0.01" value="0.10"></div>
+            <div class="readout">
+              <div><b id="green-area">–</b><span data-zh="目标面积">target area</span></div>
+              <div><b id="green-temp">–</b><span data-zh="平均地表温度">mean surface temp.</span></div>
+              <div><b id="green-cool">–</b><span id="green-ci">–</span></div>
+            </div>
+            <p class="how" data-zh="降温估算基于格拉斯哥全市 NDVI 与地表温度的关系（每单位 NDVI 约 8.7 °C）。这是筛选级估算：地表温度不等于气温，也不是对单个地块的预测。">Cooling uses the city-wide relationship between NDVI and surface temperature (about 8.7 °C per unit NDVI). It's a screening estimate: surface temperature isn't air temperature, and it isn't a forecast for any one site.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-zh="我能为你做什么">What I can do for you</h2>
+        <p data-zh="我主要承接中小型、目标明确的分析项目：一个具体问题，一个研究区，几周内交付。所有工作都用开源工具和公开卫星数据完成，以后你自己也能复现、更新。">Focused analysis projects: one clear question, one area, delivered in weeks. I work with open satellite data and open-source tools, so you can rerun and update the results yourself later.</p>
+      </div>
+      <div class="ledger">
+        <div class="svc">
+          <h3 data-zh="洪水与灾害制图">Flood &amp; disaster mapping</h3>
+          <p data-zh="用 Sentinel-1 雷达和 Landsat/Sentinel-2 快速绘制淹没范围，统计受影响的建筑和道路，并跟踪退水过程。雷达能穿透云层，所以即使暴雨后天空阴沉也能出图。">Flood extent from Sentinel-1 radar and Landsat/Sentinel-2, affected buildings and roads, and how fast the water recedes. Radar sees through cloud, so maps are possible even when the sky stays overcast after a storm.</p>
+          <div><p class="data">GeoTIFF, GeoPackage, map sheets, report</p><p class="ex"><a href="case/valencia.html" data-zh="案例：瓦伦西亚 2024 洪水">Example: Valencia 2024</a></p></div>
+        </div>
+        <div class="svc">
+          <h3 data-zh="地表形变监测（InSAR）">Ground deformation (InSAR)</h3>
+          <p data-zh="用 Sentinel-1 干涉测量绘制地震、沉降和基础设施沿线的毫米到厘米级地表位移，并给出剖面、统计和不确定性说明。">Centimetre-scale ground movement from Sentinel-1 interferometry for earthquakes, subsidence and infrastructure corridors, with profiles, statistics and a clear account of uncertainty.</p>
+          <div><p class="data">ESA SNAP, SNAPHU, Python</p><p class="ex"><a href="case/earthquakes.html" data-zh="案例：土耳其 2023 地震">Example: Türkiye 2023</a></p></div>
+        </div>
+        <div class="svc">
+          <h3 data-zh="森林、碳储量与植被">Forest, carbon &amp; vegetation</h3>
+          <p data-zh="用 LiDAR 估算林冠高度；评估火烧强度和地上碳损失，并做敏感性分析；比较哪些植被指数最能反映叶绿素和作物长势。">Canopy height from LiDAR, burn severity and above-ground carbon loss with sensitivity analysis, and which vegetation indices really track chlorophyll and crop vigour.</p>
+          <div><p class="data">Sentinel-2, airborne LiDAR, field data</p><p class="ex"><a href="case/wildfire.html" data-zh="案例：加州野火碳损失">Example: Californian wildfire</a></p></div>
+        </div>
+        <div class="svc">
+          <h3 data-zh="城市热岛与气候适应">Urban heat &amp; climate adaptation</h3>
+          <p data-zh="从 Landsat 热红外反演地表温度，找出最热又最缺绿化的街区，并估算增加植被能带来多少降温。">Land-surface temperature from Landsat thermal data, the hottest neighbourhoods with the least greenery, and how much cooling extra vegetation could bring.</p>
+          <div><p class="data">Landsat 8/9 TIRS, NDVI, land cover</p><p class="ex"><a href="case/glasgow.html" data-zh="案例：格拉斯哥">Example: Glasgow</a></p></div>
+        </div>
+        <div class="svc">
+          <h3 data-zh="GIS 分析与自动化">GIS analysis &amp; automation</h3>
+          <p data-zh="选址筛选、水资源压力分析，以及把 ArcGIS/arcpy 工作流迁移到开源 Python，结果一致，但不再需要商业许可。">Site screening, water-stress analysis, and moving ArcGIS/arcpy workflows to open-source Python with the same results and no licence fees.</p>
+          <div><p class="data">GeoPandas, rasterio, QGIS, ArcGIS Pro</p><p class="ex"><a href="case/sites.html" data-zh="案例：汉普郡选址">Example: Hampshire site screening</a></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-zh="合作流程">How a project runs</h2>
+        <p data-zh="每个项目都按这五步进行，时间长短取决于研究区大小和数据情况。">Every project follows these five steps. How long it takes depends on the area and the data.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="n">1</span><h3 data-zh="明确问题">Frame the question</h3><p data-zh="确定要支持什么决策、研究区和时间范围，以及什么样的精度够用。">What decision the work supports, the area and dates, and what accuracy is good enough.</p></li>
+        <li><span class="n">2</span><h3 data-zh="获取数据">Source the data</h3><p data-zh="优先使用免费公开的卫星数据，检查云量、覆盖和授权条款。">Free satellite archives first, checked for cloud, coverage and licence terms.</p></li>
+        <li><span class="n">3</span><h3 data-zh="分析">Analyse</h3><p data-zh="用有文档、可复现的代码处理，你随时可以复跑。">Documented, reproducible code you can rerun at any time.</p></li>
+        <li><span class="n">4</span><h3 data-zh="检验">Check</h3><p data-zh="给出不确定性范围，并与参考数据或其他传感器交叉检验。">Uncertainty ranges and cross-checks against reference data or a second sensor.</p></li>
+        <li><span class="n">5</span><h3 data-zh="交付">Deliver</h3><p data-zh="地图、GIS 数据和一份简明报告，写清结论、局限和下一步建议。">Maps, GIS layers and a short report stating the findings, the limits and next steps.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div>
+        <div class="sec-head" style="grid-template-columns: minmax(0, 1fr); margin-bottom: 20px;"><h2 data-zh="关于我">About</h2></div>
+        <p data-zh="我是 Xiaoqiao (Evelyn) Liu，英国南安普顿大学应用 GIS 与遥感硕士，本科就读于中国地质大学（武汉）遥感科学与技术专业。">I'm Xiaoqiao (Evelyn) Liu, a remote sensing and GIS analyst with an MSc in Applied GIS and Remote Sensing from the University of Southampton and a BSc in Remote Sensing Science and Technology from China University of Geosciences (Wuhan).</p>
+        <p data-zh="在 Hainan Aerospace Technology Innovation Center，我处理过 2002 到 2021 年间的多源卫星数据（Sentinel-1、Envisat、ALOS PALSAR、MODIS、VIIRS），研究南海内波和涡旋，并用 SNAP 和 MATLAB 搭建了 Sentinel-1 批量处理流程。">At the Hainan Aerospace Technology Innovation Center I processed two decades of multi-sensor satellite data (Sentinel-1, Envisat, ALOS PALSAR, MODIS, VIIRS) on internal waves and eddies in the South China Sea, and built a batch Sentinel-1 processing chain in SNAP and MATLAB.</p>
+        <p data-zh="我做项目有三个原则：结果可以复现，每个数字都附带不确定性，并且明确写出结论不能用来做什么。">I work to three rules: results you can reproduce, every number with its uncertainty, and a plain statement of what the result must not be used for.</p>
+      </div>
+      <div class="facts">
+        <div><h3 data-zh="数据">Data</h3><ul><li>Sentinel-1 SAR / InSAR</li><li>Sentinel-2, Landsat 8/9</li><li data-zh="机载 LiDAR、高光谱">Airborne LiDAR, hyperspectral</li></ul></div>
+        <div><h3 data-zh="工具">Tools</h3><ul><li>Python (rasterio, GeoPandas, NumPy)</li><li>ESA SNAP, SNAPHU, ENVI</li><li>ArcGIS Pro, QGIS, MATLAB, R</li></ul></div>
+        <div><h3 data-zh="语言">Languages</h3><ul><li data-zh="英语（工作语言）">English (professional)</li><li data-zh="中文（母语）">Mandarin Chinese (native)</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <h2 data-zh="有需要用卫星数据回答的问题吗？">Have a question satellite data could answer?</h2>
+        <p class="lede" data-zh="告诉我你的研究区、时间范围和需要支持的决策，我会回复说明是否可行以及大致方案。">Send me the area, the dates and the decision you need to make. I'll reply with whether it's feasible and an outline approach.</p>
+      </div>
+      <div class="contact-card">
+        <div class="row"><span class="label" data-zh="邮箱">Email</span></div>
+        <div class="row"><span class="v" id="email">iam7ao@outlook.com</span><button class="copy" type="button" id="copy-email" data-zh="复制">Copy</button></div>
+        <div class="row"><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/xiaoqiao-liu-79301a358" target="_blank" rel="noopener">xiaoqiao-liu</a></div>
+        <div class="row"><span class="label">GitHub</span><a href="https://github.com/7ao6688-hash" target="_blank" rel="noopener">7ao6688-hash</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Xiaoqiao Liu</span>
+    <span data-zh="卫星数据：Copernicus Sentinel、USGS Landsat。所有案例代码均为 MIT 开源许可。">Satellite data: Copernicus Sentinel, USGS Landsat. All case-study code is MIT-licensed.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // Before/after slider
+  const stage = document.getElementById("stage"), cut = document.getElementById("cut");
+  const setCut = v => { stage.style.setProperty("--cut", v + "%"); stage.setAttribute("aria-valuenow", Math.round(v)); };
+  setCut(cut.value);
+  cut.addEventListener("input", () => setCut(cut.value));
+  const drag = e => {
+    const r = stage.getBoundingClientRect();
+    const v = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+    cut.value = v; setCut(v);
+  };
+  stage.addEventListener("pointerdown", e => { e.preventDefault(); stage.setPointerCapture(e.pointerId); drag(e); });
+  stage.addEventListener("dragstart", e => e.preventDefault());
+  stage.addEventListener("keydown", e => { const d = e.key === "ArrowLeft" ? -4 : e.key === "ArrowRight" ? 4 : 0; if (!d) return; e.preventDefault(); cut.value = Math.max(0, Math.min(100, +cut.value + d)); setCut(cut.value); });
+  stage.addEventListener("pointermove", e => { if (stage.hasPointerCapture(e.pointerId)) drag(e); });
+
+  const modes = {
+    radar: { pre: "assets/slider-radar-pre.webp", post: "assets/slider-radar-post.webp", d1: "20 Oct", d2: "1 Nov",
+      en: "Valencia, October 2024. Sentinel-1 radar: calm water reflects the signal away, so flooded rice fields turn black. Drag across the image to compare.",
+      zh: "Sentinel-1 雷达（VV 极化）。平静的水面会把雷达信号反射出去，因此被淹的稻田变黑。拖动分割线可以对比洪水前后。" },
+    optical: { pre: "assets/slider-optical-pre.webp", post: "assets/slider-optical-post.webp", d1: "28 Sep", d2: "30 Oct",
+      en: "Valencia, October 2024. Landsat 8 true colour: the day after the flood, brown water covers the fields around the Albufera lagoon. Drag across the image to compare.",
+      zh: "Landsat 8 真彩色影像。洪水后一天，阿尔武费拉潟湖周边的农田被褐色洪水覆盖。拖动分割线进行对比。" },
+  };
+  let mode = "optical";
+  const cap = document.getElementById("compare-cap");
+  function setMode(m) {
+    mode = m;
+    document.getElementById("img-before").src = modes[m].pre;
+    document.getElementById("img-after").src = modes[m].post;
+    document.getElementById("date-before").textContent = modes[m].d1;
+    document.getElementById("date-after").textContent = modes[m].d2;
+    cap.dataset.zh = modes[m].zh; cap.dataset.en = modes[m].en;
+    cap.textContent = lang === "zh" ? modes[m].zh : modes[m].en;
+    document.getElementById("mode-radar").setAttribute("aria-pressed", m === "radar");
+    document.getElementById("mode-optical").setAttribute("aria-pressed", m === "optical");
+  }
+  document.getElementById("mode-radar").addEventListener("click", () => setMode("radar"));
+  document.getElementById("mode-optical").addEventListener("click", () => setMode("optical"));
+
+  // Case filters
+  const chips = document.querySelectorAll(".chip");
+  chips.forEach(c => c.addEventListener("click", () => {
+    chips.forEach(x => x.setAttribute("aria-pressed", x === c));
+    const f = c.dataset.filter;
+    document.querySelectorAll(".case").forEach(card => {
+      card.hidden = f !== "all" && !card.dataset.tags.split(" ").includes(f);
+    });
+  }));
+
+  // Copy email
+  document.getElementById("copy-email").addEventListener("click", async e => {
+    const btn = e.currentTarget, text = document.getElementById("email").textContent;
+    try { await navigator.clipboard.writeText(text); btn.textContent = lang === "zh" ? "已复制" : "Copied"; }
+    catch { const r = document.createRange(); r.selectNodeContents(document.getElementById("email"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = lang === "zh" ? "已选中" : "Selected"; }
+    setTimeout(() => { btn.textContent = lang === "zh" ? "复制" : "Copy"; }, 1800);
+  });
+
+  // Language toggle (English default, Chinese optional)
+  let lang = "en";
+  const nodes = [...document.querySelectorAll("[data-zh],[data-zh-html]")];
+  nodes.forEach(n => { n.dataset.enHtml = n.innerHTML; });
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
+    nodes.forEach(n => {
+      if (l === "en") n.innerHTML = n.dataset.enHtml;
+      else if (n.dataset.zhHtml) n.innerHTML = n.dataset.zhHtml;
+      else n.textContent = n.dataset.zh;
+    });
+    if (l === "en") cap.textContent = modes[mode].en;
+    document.getElementById("lang").textContent = l === "zh" ? "English" : "中文";
+    try { localStorage.setItem("lang", l); } catch {}
+  }
+  document.getElementById("lang").addEventListener("click", () => setLang(lang === "en" ? "zh" : "en"));
+  try { if (localStorage.getItem("lang") === "zh") setLang("zh"); } catch {}
+})();
+</script>
+<script src="assets/lab.js" defer></script>
+</body>
+</html>

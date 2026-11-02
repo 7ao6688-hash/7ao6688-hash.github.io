@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Which satellite index best tracks plant health? · Xiaoqiao Liu</title>
+<title>Which satellite index best tracks plant health?, Xiaoqiao Liu</title>
 <meta name="description" content="Chlorophyll is the pigment that shows how healthy and productive plants are, and dozens of satellite indices claim to measure it. I tested five common ones on 160 lab-measured leaves from eight species, and on field plots seen by Sentinel-2.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/case.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=4">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>· Earth observation</span></a>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
 <nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
 <main class="wrap">
 <div class="case-head">
-<a class="back" href="../index.html#work">← All case studies</a>
-<p class="label">Vegetation health · lab and satellite</p>
+<a class="back" href="../index.html#work">Back to all case studies</a>
+<p class="label">Vegetation health, lab and satellite</p>
 <h1>Which satellite index best tracks plant health?</h1>
 <p class="lede">Chlorophyll is the pigment that shows how healthy and productive plants are, and dozens of satellite indices claim to measure it. I tested five common ones on 160 lab-measured leaves from eight species, and on field plots seen by Sentinel-2.</p>
 <div class="stats"><div><b>0.75</b><span>MTCI, average R² within a species</span></div><div><b>0.76</b><span>MTCI, R² for canopy chlorophyll</span></div><div><b>≤ 0.21</b><span>NDVI and PSSRa in the lab</span></div><div><b>160</b><span>leaves from 8 species</span></div></div>
@@ -53,14 +54,14 @@
 </section>
 </article>
 <aside class="glance"><div><h3>Data</h3><ul><li>Lab leaf spectra, 350–1050 nm</li><li>Lab chlorophyll measurements</li><li>Sentinel-2 L2A field plots</li></ul></div><div><h3>Methods</h3><ul><li>Band resampling</li><li>Vegetation indices</li><li>Leave-one-out and leave-one-species-out tests</li></ul></div><div><h3>Tools</h3><ul><li>Python, pandas, NumPy</li></ul></div>
-<a class="btn" href="https://github.com/7ao6688-hash/leaf-chlorophyll-indices" target="_blank" rel="noopener">Code and data on GitHub ↗</a>
-<a class="btn" href="../index.html#contact" style="background:var(--accent)">Discuss a similar project</a>
+<a class="btn" href="https://github.com/7ao6688-hash/leaf-chlorophyll-indices" target="_blank" rel="noopener">Code and data on GitHub</a>
+<a class="btn primary" href="../index.html#contact">Discuss a similar project</a>
 </aside>
 </div>
 <details class="tech"><summary>Technical details</summary><div class="table-wrap"><table><tr><th>Indices</th><td>MTCI (B6−B5)/(B5−B4) · IRECI (B7−B4)/(B5/B6) · GNDVI · NDVI · PSSRa, with B7 (783 nm) as NIR</td></tr><tr><th>Lab results</th><td>Within-species R²: MTCI 0.75, IRECI 0.63, GNDVI 0.60, NDVI 0.20, PSSRa 0.14</td></tr><tr><th>Transfer test</th><td>Leave-one-species-out RMSE: IRECI 37.4, MTCI 40.3, NDVI 57.0 µg/cm²</td></tr><tr><th>Satellite</th><td>R² for CCC: MTCI 0.76, GNDVI 0.58, NDVI 0.52, IRECI 0.50, PSSRa 0.34</td></tr><tr><th>Earlier version</th><td>Explains two inconsistent R² sets in the first write-up: one within-species, one pooled</td></tr></table></div></details>
-<div class="next"><div><p class="label">Next case study</p><h2><a href="lidar.html">Turning LiDAR into a forest inventory →</a></h2></div>
+<div class="next"><div><p class="label">Next case study</p><h2><a href="lidar.html">Turning LiDAR into a forest inventory</a></h2></div>
 <a href="../index.html#work">All case studies</a></div>
 </main>
-<footer><div class="wrap">© 2026 Xiaoqiao Liu · Satellite data: Copernicus Sentinel, USGS Landsat · Case-study code is MIT-licensed</div></footer>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.</div></footer>
 </body>
 </html>
