@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>西班牙哪些省份的用水超过了本地产水？｜Xiaoqiao Liu</title>
+<meta name="description" content="西班牙是欧洲水资源压力最大的国家之一，但压力分布极不均匀。我只用免费的全球数据集，比较了每个省份生活和灌溉农业的需水量与本地土地产生的水量。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/spain.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/spain-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="spain.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">水资源，西班牙</p>
+<h1>西班牙哪些省份的用水超过了本地产水？</h1>
+<p class="lede">西班牙是欧洲水资源压力最大的国家之一，但压力分布极不均匀。我只用免费的全球数据集，比较了每个省份生活和灌溉农业的需水量与本地土地产生的水量。</p>
+<div class="stats"><div><b>24%</b><span>全国使用的本地径流比例</span></div><div><b>19 个</b><span>省份处于高压力（共 50 个）</span></div><div><b>≈ ⅔</b><span>的人口生活在这些省份</span></div><div><b>5.5×</b><span>阿利坎特需水量是本地径流的倍数</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/spain-stress.webp" alt="各省需水量除以本地产生的径流。颜色越深压力越大。"></div><figcaption>各省需水量除以本地产生的径流。颜色越深压力越大。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>水资源管理者、农户和投资者想知道<b>哪些地区的需水量已经超过了本地产水</b>，以及原因是什么。要在全国范围内一致地回答这个问题，各地必须使用相同的数据和相同的规则。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>估算供水</b>：用 TerraClimate 径流（1991–2020 年平均，约 4 km），按每个格网的真实面积换算成立方米。</li>
+<li><b>估算生活需水</b>：用 WorldPop 2020 人口，按每人每天 0.2 m³ 计算。</li>
+<li><b>估算灌溉需水</b>：用 FAO 灌溉面积图，按每公顷每年 4,000 m³ 计算。</li>
+<li><b>把所有数据放到同一个 1 km 网格上且不改变总量。</b>人口和面积只做求和或按面积拆分，从不拉伸或插值。</li>
+<li><b>计算每个省的压力比</b>（<span class="term" tabindex="0">WTA<span class="def" role="tooltip">取水与可用水比：年需水量除以本地产水量。超过 0.4 即为高压力。</span></span>），并测试每个假设变化时结果如何变化。</li></ol>
+</section>
+<section><h2>结果显示了什么</h2>
+<figure class="fig"><img src="../assets/spain-inputs.webp" alt="西班牙径流、人口和灌溉面积地图" loading="lazy"></figure>
+<figcaption>三项输入：产水量（径流）、人口和灌溉土地。</figcaption>
+<p>西班牙全国需水量约为本地产水的四分之一，已经超过“中高压力”线，而且分布极不均匀。东南部（阿利坎特、穆尔西亚、瓦伦西亚）的需水量是本地产水的四到六倍，几乎全部用于灌溉。马德里和巴塞罗那的压力来自小面积上的数百万人口。大西洋沿岸的北部水量充足。</p>
+<figure class="fig"><img src="../assets/spain-ranking.webp" alt="各省水资源压力排名" loading="lazy"></figure>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>只计算了本地产水。</b>上游流入的河水、跨流域调水、地下水和海水淡化都未计入，所以东南部和下游省份的压力看起来比实际供水情况更大。</li>
+<li><b>灌溉定额影响最大。</b>在每公顷 3,000 到 6,000 m³ 之间，全国比值从 0.19 变到 0.34，但东南部在所有情景下都处于高压力。</li>
+<li><b>年平均值掩盖了干旱</b>，而缺水恰恰发生在干旱时。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>任意国家或地区的压力图和分省表</li><li>不同用水假设下的情景分析</li>
+<li>可与您自己的数据结合的网格化供需图层</li><li>一份简明报告，说明哪些地区的压力是确定的，哪些取决于假设</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>TerraClimate 径流，1991–2020</li><li>WorldPop 2020 人口</li><li>FAO GMIA 灌溉面积</li><li>Eurostat NUTS 3 省界</li></ul></div><div><h3>方法</h3><ul><li>保持总量的网格化</li><li>取水与可用水比</li><li>情景测试</li></ul></div><div><h3>工具</h3><ul><li>Python、rasterio、GeoPandas</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/spain-water-stress" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>网格</th><td>1/120°（≈ 1 km）；径流深 × 球面格网面积；人口按块求和；灌溉面积按面积拆分</td></tr><tr><th>系数</th><td>生活 0.2 m³/人/天；灌溉 4,000 m³/ha/年（测试 3,000–6,000）</td></tr><tr><th>等级</th><td>低 < 0.1 ≤ 中 < 0.2 ≤ 中高 < 0.4 ≤ 高</td></tr><tr><th>范围</th><td>本土和巴利阿里群岛各省（不含加那利群岛、休达和梅利利亚）</td></tr><tr><th>早期版本</th><td>此处已修正：之前把汇流累积量当成了径流，把人口数当成了人口密度</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="sites-zh.html">寻找安静又靠近高速公路的土地</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

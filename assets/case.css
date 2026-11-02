@@ -95,3 +95,9 @@ footer { border-top: 1px solid var(--rule); padding-block: 28px 44px; color: var
 @media (max-width: 600px) {
   .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 }
+
+/* Language switch */
+header.top nav { align-items: center; }
+header.top nav a.lang { font: 500 13px var(--sans); border: 1px solid var(--rule); background: var(--card); padding: 5px 10px; border-radius: 8px; }
+header.top nav a.lang:hover { border-color: var(--ink); color: var(--ink); }
+:lang(zh) .lede, :lang(zh) .prose { line-height: 1.85; }

@@ -133,6 +133,20 @@ BODY = BODY.replace('href="#case-valencia"', 'href="case/valencia.html"').replac
            .replace('href="#case-sites"', 'href="case/sites.html"')
 assert "#case-" not in BODY
 
-html = HEAD + BODY + script + "</body>\n</html>\n"   # script includes the lab.js tag and the optical default
+# In Chinese, case links open the Chinese case pages (the page script's toggle sets <html lang>).
+CASE_LANG = """<script>
+(() => {
+  const links = [...document.querySelectorAll('a[href^="case/"]')];
+  links.forEach(a => { a.dataset.en = a.getAttribute("href"); });
+  const sync = () => {
+    const zh = document.documentElement.lang.startsWith("zh");
+    links.forEach(a => a.setAttribute("href", zh ? a.dataset.en.replace(".html", "-zh.html") : a.dataset.en));
+  };
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+  sync();
+})();
+</script>
+"""
+html = HEAD + BODY + script + CASE_LANG + "</body>\n</html>\n"   # script includes the lab.js tag and the optical default
 (here / "index.html").write_text(html, encoding="utf-8")
 print(f"index.html written ({len(html) // 1024} KB)")

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>从太空绘制瓦伦西亚 DANA 洪水｜Xiaoqiao Liu</title>
+<meta name="description" content="2024 年 10 月 29 日，一场风暴在几小时内给瓦伦西亚以南的城镇带来了超过一年的降雨量。洪水前后的卫星影像显示了洪水蔓延到哪里、停留了多久，以及哪些地区受灾最重。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/valencia.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/valencia-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="valencia.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">洪水制图，西班牙瓦伦西亚，2024 年 10 月</p>
+<h1>从太空绘制瓦伦西亚 DANA 洪水</h1>
+<p class="lede">2024 年 10 月 29 日，一场风暴在几小时内给瓦伦西亚以南的城镇带来了超过一年的降雨量。洪水前后的卫星影像显示了洪水蔓延到哪里、停留了多久，以及哪些地区受灾最重。</p>
+<div class="stats"><div><b>67 km²</b><span>洪水后一天的积水（Landsat）</span></div><div><b>42 km²</b><span>11 月 1 日仍被淹（雷达）</span></div><div><b>14 km²</b><span>11 月 6 日消退后剩余</span></div><div><b>57%</b><span>首张洪水图被雷达证实的比例</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/valencia-radar.webp" alt="洪水前（10 月 20 日）和洪水后（11 月 1 日）的雷达影像，以及雷达洪水图与 10 月 30 日 Landsat 洪水图的对比。"></div><figcaption>洪水前（10 月 20 日）和洪水后（11 月 1 日）的雷达影像，以及雷达洪水图与 10 月 30 日 Landsat 洪水图的对比。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>应急团队和保险公司需要快速、大范围地知道<b>洪水去了哪里、停留了多久</b>。洪水刚过时实地调查既慢又危险，而风暴云又常常挡住普通的卫星照片。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>对比洪水前后的光学影像。</b>Landsat 8 在 9 月 28 日和洪水后一天的 10 月 30 日拍摄了该地区。水体指数（<span class="term" tabindex="0">MNDWI<span class="def" role="tooltip">改进归一化水体指数：(绿光 − 短波红外) ÷ (绿光 + 短波红外)。水体的值大于零。</span></span>）显示哪些像元变成了水。</li>
+<li><b>让数据自己决定阈值。</b>不靠肉眼挑阈值，而是用 <span class="term" tabindex="0">Otsu<span class="def" role="tooltip">大津法：在直方图中自动找出最能把两类（这里是水和陆地）分开的阈值，不需要人为指定。</span></span> 从影像本身求出。之后把阈值上下移动重新制图，看结果对阈值有多敏感。</li>
+<li><b>加入能穿透云层的雷达。</b>10 月 20 日和 11 月 1 日的 Sentinel-1 <span class="term" tabindex="0">SAR<span class="def" role="tooltip">合成孔径雷达。卫星自己发射微波脉冲，所以无论白天黑夜都能穿透云层成像。</span></span> 影像中，水体呈暗色。只有洪水后变暗、洪水前不暗、且至少暗了 3 <span class="term" tabindex="0">dB<span class="def" role="tooltip">分贝：雷达亮度的对数刻度，每 10 dB 代表反射能量相差十倍。</span></span> 的像元才算被淹。</li>
+<li><b>跟踪洪水消退。</b>第二对雷达影像（10 月 25 日和 11 月 6 日）显示一周后还剩多少积水。</li>
+<li><b>统计受影响的建筑。</b>把 79,000 个 OpenStreetMap 建筑轮廓叠加到洪水图上。</li></ol>
+</section>
+<section><h2>地图显示了什么</h2>
+<figure class="fig"><img src="../assets/valencia-optical.webp" alt="洪水前后的 Landsat 真彩色影像和新增积水" loading="lazy"></figure>
+<figcaption>Landsat 8：洪水前（9 月 28 日）、洪水后一天（10 月 30 日），蓝色为新增积水。</figcaption>
+<p>大部分洪水停留在阿尔武费拉潟湖周围的稻田和农田上。两颗卫星相隔三天，对大片水体的判断一致：雷达证实了 Landsat 所绘面积的 57%，还发现了 Landsat 因云层遮挡漏掉的 3.5 km²。</p>
+<div class="pair"><figure class="fig"><img src="../assets/valencia-timeline.webp" alt="10 月 30 日、11 月 1 日和 11 月 6 日的淹没面积柱状图" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/valencia-towns.webp" alt="受灾城镇与对照城镇的雷达亮度变化" loading="lazy"></figure></div>
+<p>受灾最重的城镇，例如 Paiporta 和 Catarroja，在卫星过境前积水就已经退去，所以在图上看不到开阔水面。但在雷达上，这些城镇的建筑亮度增加了 0.8 到 1.4 dB，而未受淹的瓦伦西亚市区只变化了 0.25 到 0.55 dB。淤泥、杂物和潮湿的墙面解释了这一差异。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>建筑数量是下限。</b>10 月 30 日只有 191 栋建筑位于开阔积水中，更多建筑被已经退去的洪水损坏。</li>
+<li><b>阈值有影响。</b>把 Landsat 阈值上下移动 ±0.15，面积在 51 到 99 km² 之间。这个范围与主要结果一并报告。</li>
+<li><b>每颗卫星只有一个时相。</b>两次过境之间来了又退的洪水无法被观测到。</li>
+<li><b>尚未与官方地图核对</b>，例如 Copernicus 应急管理服务针对此次事件发布的范围图。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>每个日期的洪水范围图层（GeoTIFF 和 GeoPackage）</li><li>受影响建筑和道路清单</li>
+<li>附不确定性范围的地图和简明报告，可直接交给应急、保险或规划团队</li><li>全部代码，下次事件可以直接重跑同样的分析</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>Landsat 8 Level-2，30 m</li><li>Sentinel-1 RTC（VV），10 m</li><li>OpenStreetMap 建筑</li></ul></div><div><h3>方法</h3><ul><li>MNDWI 变化检测</li><li>雷达后向散射变化</li><li>Otsu 阈值</li><li>建筑暴露度</li></ul></div><div><h3>工具</h3><ul><li>Python、rasterio、GeoPandas</li><li>Microsoft Planetary Computer</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/valencia-flood-2024" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>光学影像对</th><td>LC08 198/033，2024 年 9 月 28 日和 10 月 30 日；QA_PIXEL 云掩膜；两个日期均 91% 无云</td></tr><tr><th>光学判别规则</th><td>洪水后 MNDWI > 0.05（Otsu），且洪水前 MNDWI ≤ 0</td></tr><tr><th>雷达影像对</th><td>Sentinel-1A 110 轨降轨，2024 年 10 月 20 日和 11 月 1 日；RTC γ⁰ 聚合到 30 m；3 × 3 斑点滤波</td></tr><tr><th>雷达判别规则</th><td>洪水后 VV < −12.3 dB（Otsu），洪水前 VV ≥ −12.3 dB，变化 ≤ −3 dB</td></tr><tr><th>后续观测</th><td>8 轨，2024 年 10 月 25 日 → 11 月 6 日；覆盖 83% 的研究区</td></tr><tr><th>研究区</th><td>20 × 25 km，0.52–0.30° W，39.28–39.50° N</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="earthquakes-zh.html">测量两次地震中地面移动了多远</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

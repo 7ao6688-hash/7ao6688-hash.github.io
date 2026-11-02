@@ -1,6 +1,8 @@
 """Generate the case-study pages in case/ from one template. Run after editing CASES."""
 from pathlib import Path
 
+from cases_zh import UI as UI_ZH, ZH
+
 HERE = Path(__file__).parent
 TERMS = {
     "SAR": "Synthetic aperture radar. The satellite sends its own microwave pulses, so it images through cloud, day or night.",
@@ -316,35 +318,69 @@ CASES = [
 ]
 
 HEAD = """<!doctype html>
-<html lang="en">
+<html lang="{html_lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{title}, Xiaoqiao Liu</title>
+<title>{title}{title_sep}Xiaoqiao Liu</title>
 <meta name="description" content="{lede_attr}">
+{lang_script}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="../assets/case.css?v=4">
+<link rel="stylesheet" href="../assets/case.css?v=5">
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/{slug}.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/{slug}-zh.html">
 </head>
 <body>
 <header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
-<nav><a href="../index.html#work">Case studies</a><a href="../index.html#lab">Lab</a><a href="../index.html#contact">Contact</a></nav></div></header>
+<nav><a href="../index.html#work">{nav[0]}</a><a href="../index.html#lab">{nav[1]}</a><a href="../index.html#contact">{nav[2]}</a>
+<a class="lang" href="{other}" onclick="try{{localStorage.setItem('lang','{other_lang}')}}catch(e){{}}">{other_label}</a></nav></div></header>
 """
 
+UI_EN = {
+    "back": "Back to all case studies", "next": "Next case study", "all": "All case studies", "tech": "Technical details",
+    "code": "Code and data on GitHub", "discuss": "Discuss a similar project",
+    "nav": ("Case studies", "Lab", "Contact"),
+    "footer": "© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.",
+}
 
-def page(c, others):
+
+def localise(c):
+    """The Chinese version of a case: same figures and numbers, text from cases_zh.py."""
+    z = ZH[c["slug"]]
+    values = [v for v, _ in c["stats"]]
+    for i, v in z.get("stat_values", {}).items():
+        values[i] = v
+    assert len(z["stats"]) == len(values) and len(z["sections"]) == len(c["sections"]) and len(z["tech"]) == len(c["tech"]), c["slug"]
+    return {**c, "kicker": z["kicker"], "title": z["title"], "lede": z["lede"], "stats": list(zip(values, z["stats"])),
+            "hero": (c["hero"][0], z["hero"]), "sections": z["sections"], "tech": z["tech"],
+            "glance": list(zip(UI_ZH["glance"], z["glance"]))}
+
+
+def page(c, others, zh=False):
+    ui, suffix = (UI_ZH, "-zh") if zh else (UI_EN, "")
+    if zh:
+        c, others = localise(c), [localise(o) for o in others]
     stats = "".join(f"<div><b>{v}</b><span>{k}</span></div>" for v, k in c["stats"])
     sections = "\n".join(f'<section><h2>{h}</h2>\n{body}\n</section>' for h, body in c["sections"])
     glance = "".join(f"<div><h3>{h}</h3><ul>{''.join(f'<li>{i}</li>' for i in items)}</ul></div>" for h, items in c["glance"])
     tech = "".join(f"<tr><th>{k}</th><td>{v}</td></tr>" for k, v in c["tech"])
-    nxt = others[(others.index(c) + 1) % len(others)]
+    nxt = others[[o["slug"] for o in others].index(c["slug"]) + 1 - len(others)]
     img, cap = c["hero"]
-    kicker = ", ".join(c["kicker"].split(" · "))
-    return HEAD.format(title=c["title"], lede_attr=c["lede"].replace('"', "&quot;")) + f"""<main class="wrap">
+    kicker = ("，" if zh else ", ").join(c["kicker"].split(" · "))
+    slug = c["slug"]
+    # Remember the reader's language across pages (the home page uses the same key); an English page opened by
+    # someone who chose Chinese forwards to the Chinese one.
+    lang_script = ('<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>' if zh else
+                   f'<script>try{{if(localStorage.getItem("lang")==="zh")location.replace("{slug}-zh.html"+location.hash)}}catch(e){{}}</script>')
+    return HEAD.format(html_lang="zh-CN" if zh else "en", title=c["title"], title_sep="｜" if zh else ", ",
+                       lede_attr=c["lede"].replace('"', "&quot;"), lang_script=lang_script, slug=slug, nav=ui["nav"],
+                       other=f"{slug}.html" if zh else f"{slug}-zh.html", other_lang="en" if zh else "zh",
+                       other_label="English" if zh else "中文") + f"""<main class="wrap">
 <div class="case-head">
-<a class="back" href="../index.html#work">Back to all case studies</a>
+<a class="back" href="../index.html#work">{ui["back"]}</a>
 <p class="label">{kicker}</p>
 <h1>{c["title"]}</h1>
 <p class="lede">{c["lede"]}</p>
@@ -356,15 +392,15 @@ def page(c, others):
 {sections}
 </article>
 <aside class="glance">{glance}
-<a class="btn" href="https://github.com/7ao6688-hash/{c["repo"]}" target="_blank" rel="noopener">Code and data on GitHub</a>
-<a class="btn primary" href="../index.html#contact">Discuss a similar project</a>
+<a class="btn" href="https://github.com/7ao6688-hash/{c["repo"]}" target="_blank" rel="noopener">{ui["code"]}</a>
+<a class="btn primary" href="../index.html#contact">{ui["discuss"]}</a>
 </aside>
 </div>
-<details class="tech"><summary>Technical details</summary><div class="table-wrap"><table>{tech}</table></div></details>
-<div class="next"><div><p class="label">Next case study</p><h2><a href="{nxt["slug"]}.html">{nxt["title"]}</a></h2></div>
-<a href="../index.html#work">All case studies</a></div>
+<details class="tech"><summary>{ui["tech"]}</summary><div class="table-wrap"><table>{tech}</table></div></details>
+<div class="next"><div><p class="label">{ui["next"]}</p><h2><a href="{nxt["slug"]}{suffix}.html">{nxt["title"]}</a></h2></div>
+<a href="../index.html#work">{ui["all"]}</a></div>
 </main>
-<footer><div class="wrap">© 2026 Xiaoqiao Liu. Satellite data: Copernicus Sentinel, USGS Landsat. Case-study code is MIT-licensed.</div></footer>
+<footer><div class="wrap">{ui["footer"]}</div></footer>
 </body>
 </html>
 """
@@ -374,5 +410,7 @@ if __name__ == "__main__":
     out = HERE / "case"
     out.mkdir(exist_ok=True)
     for c in CASES:
-        (out / f"{c['slug']}.html").write_text(page(c, CASES), encoding="utf-8")
-        print("wrote", f"case/{c['slug']}.html")
+        for zh in (False, True):
+            name = f"{c['slug']}{'-zh' if zh else ''}.html"
+            (out / name).write_text(page(c, CASES, zh), encoding="utf-8")
+            print("wrote", f"case/{name}")

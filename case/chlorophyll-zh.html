@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>哪个卫星指数最能反映植物健康？｜Xiaoqiao Liu</title>
+<meta name="description" content="叶绿素反映植物有多健康、生产力有多高，有几十种卫星指数声称能测量它。我在 8 个物种的 160 片实验室实测叶片上，以及 Sentinel-2 观测的野外样地上，测试了五种常用指数。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/chlorophyll.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/chlorophyll-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="chlorophyll.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">植被健康，实验室与卫星</p>
+<h1>哪个卫星指数最能反映植物健康？</h1>
+<p class="lede">叶绿素反映植物有多健康、生产力有多高，有几十种卫星指数声称能测量它。我在 8 个物种的 160 片实验室实测叶片上，以及 Sentinel-2 观测的野外样地上，测试了五种常用指数。</p>
+<div class="stats"><div><b>0.75</b><span>MTCI，物种内平均 R²</span></div><div><b>0.76</b><span>MTCI，冠层叶绿素 R²</span></div><div><b>≤ 0.21</b><span>NDVI 和 PSSRa 在实验室的表现</span></div><div><b>160</b><span>片叶片，来自 8 个物种</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/chlorophyll-r2.webp" alt="各指数在实验室和卫星尺度上对叶绿素的解释能力。"></div><figcaption>各指数在实验室和卫星尺度上对叶绿素的解释能力。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>农业顾问、林业人员和生态学家用卫星指数监测作物长势和森林健康。<b>选错指数可能掩盖真实问题</b>，因为有些指数在植物达到中等绿度后就不再有反应。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>测量叶片反射率</b>：160 片叶子 350 到 1050 nm 的光谱，以及实验室测得的叶绿素含量。</li>
+<li><b>模拟 Sentinel-2 看到的结果</b>：把每条光谱重采样到卫星波段，包括<span class="term" tabindex="0">红边<span class="def" role="tooltip">红边：叶片反射率在红光和近红外之间（约 690–750 nm）急剧上升的区段，其位置随叶绿素含量移动。</span></span>波段。</li>
+<li><b>计算五种指数</b>：NDVI、GNDVI、PSSRa、MTCI 和 IRECI。</li>
+<li><b>用三种方式测试每个指数</b>：物种内、跨物种合并，以及模型从未见过的物种。</li>
+<li><b>用真实 Sentinel-2 影像重复测试</b>：在 New Forest 野外样地上，分别针对叶片和冠层叶绿素。</li></ol>
+</section>
+<section><h2>结果显示了什么</h2>
+<figure class="fig"><img src="../assets/chlorophyll-species.webp" alt="各物种与各指数 R² 热力图" loading="lazy"></figure>
+<p>基于红边波段的两个指数表现最好。MTCI 能解释物种内约四分之三的叶绿素变化。IRECI 在新物种上最稳定，这在模型需要用于未训练过的作物时很重要。最常用的 NDVI 在好几个物种上几乎没有解释力，因为它在绿叶上会饱和。</p>
+<figure class="fig"><img src="../assets/chlorophyll-canopy.webp" alt="Sentinel-2 指数与冠层叶绿素" loading="lazy"></figure>
+<p>从卫星上看，每个指数对<b>冠层</b>叶绿素（叶片叶绿素 × 叶面积）的反映都好于单纯的叶片叶绿素，因为一个像元看到的是整个冠层。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>实验室光照下的单片叶子</b>比真实的 20 m 像元干净得多，后者混合了叶片、枝条、土壤和阴影。</li>
+<li><b>卫星部分只有一个地区、一个季节</b>（New Forest，2016 年 4 月到 10 月），用于其他地方需要重新校准。</li>
+<li>实验室测量数据来自一个不能再分发的数据集，结果和代码是公开的。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>针对某种作物、森林或生境推荐使用哪个指数</li><li>附误差估计的指数—叶绿素校准模型</li>
+<li>Sentinel-2 季节性长势图</li><li>需要多少野外样本的建议</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>实验室叶片光谱，350–1050 nm</li><li>实验室叶绿素测量</li><li>Sentinel-2 L2A 野外样地</li></ul></div><div><h3>方法</h3><ul><li>波段重采样</li><li>植被指数</li><li>留一法和留一物种法测试</li></ul></div><div><h3>工具</h3><ul><li>Python、pandas、NumPy</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/leaf-chlorophyll-indices" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>指数</th><td>MTCI (B6−B5)/(B5−B4) · IRECI (B7−B4)/(B5/B6) · GNDVI · NDVI · PSSRa，以 B7（783 nm）为近红外</td></tr><tr><th>实验室结果</th><td>物种内 R²：MTCI 0.75、IRECI 0.63、GNDVI 0.60、NDVI 0.20、PSSRa 0.14</td></tr><tr><th>迁移测试</th><td>留一物种 RMSE：IRECI 37.4、MTCI 40.3、NDVI 57.0 µg/cm²</td></tr><tr><th>卫星</th><td>冠层叶绿素 R²：MTCI 0.76、GNDVI 0.58、NDVI 0.52、IRECI 0.50、PSSRa 0.34</td></tr><tr><th>早期版本</th><td>解释了最初报告中两组不一致的 R²：一组是物种内，一组是合并</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="lidar-zh.html">把 LiDAR 数据变成森林清查</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>测量两次地震中地面移动了多远｜Xiaoqiao Liu</title>
+<meta name="description" content="雷达卫星可以在数千平方公里范围内测出几厘米的地面移动。我用它绘制了 2023 年土耳其和摩洛哥地震的形变，并把结果做成图，准确显示地面移动最大的位置。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/earthquakes.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/earthquakes-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="earthquakes.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">地表形变，土耳其与摩洛哥，2023</p>
+<h1>测量两次地震中地面移动了多远</h1>
+<p class="lede">雷达卫星可以在数千平方公里范围内测出几厘米的地面移动。我用它绘制了 2023 年土耳其和摩洛哥地震的形变，并把结果做成图，准确显示地面移动最大的位置。</p>
+<div class="stats"><div><b>≈ 74 cm</b><span>卡赫拉曼马拉什附近 10 km 内的变化</span></div><div><b>≈ 15 cm</b><span>摩洛哥朝向卫星的抬升</span></div><div><b>2</b><span>次地震，两种雷达观测几何</span></div><div><b>完全</b><span>与我最初的 SNAP 统计完全一致</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/turkiye-los.webp" alt="2023 年 2 月卡赫拉曼马拉什地震后，地面朝向（红）和远离（蓝）卫星的移动。"></div><figcaption>2023 年 2 月卡赫拉曼马拉什地震后，地面朝向（红）和远离（蓝）卫星的移动。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>大地震之后，工程师和规划人员需要知道<b>地面在哪里移动了、移动了多少</b>：这关系到灾损调查、重建和灾害图。GPS 站测得精确但只有少数几个点，<span class="term" tabindex="0">InSAR<span class="def" role="tooltip">干涉合成孔径雷达：比较相隔数天的两景雷达影像的相位，可以发现厘米级甚至更小的地表移动。</span></span> 则能测量卫星看到的每一处。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>为每次地震配对震前震后的雷达影像</b>：土耳其用 2023 年 1 月 29 日和 2 月 10 日的 Sentinel-1，摩洛哥用 2023 年 9 月 3 日和 15 日。</li>
+<li><b>在 ESA SNAP 中生成干涉图</b>：配准影像，用数字高程模型去除地形影响，再滤除噪声。</li>
+<li><b>用 SNAPHU 解缠条纹</b>（<span class="term" tabindex="0">相位解缠<span class="def" role="tooltip">雷达相位每半个波长（2.8 cm）重复一次。解缠就是数清重复次数，还原出一张连续的位移图。</span></span>），并换算成沿<span class="term" tabindex="0">视线方向<span class="def" role="tooltip">视线方向：雷达只能测量朝向或远离卫星的移动，无法单独区分上下或水平方向。</span></span>移动的厘米数。</li>
+<li><b>剔除不可靠像元</b>：去掉<span class="term" tabindex="0">相干性<span class="def" role="tooltip">相干性：两景雷达影像的相似程度，取值 0 到 1。相干性低（植被、水体、剧烈变化）意味着测量不可靠。</span></span>低于 0.3 的区域（摩洛哥），并用稳健统计量概括整景结果。</li>
+<li><b>绘制剖面</b>，即横穿研究区的条带，显示移动量随距离的变化，并给出<span class="term" tabindex="0">自助法<span class="def" role="tooltip">自助法：对数据反复重抽样，看结果会因偶然因素变化多少，从而得到置信区间。</span></span>置信区间。</li></ol>
+</section>
+<section><h2>地图显示了什么</h2>
+<div class="pair"><figure class="fig"><img src="../assets/turkiye-profile.webp" alt="横穿卡赫拉曼马拉什的位移剖面" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/morocco-los.webp" alt="2023 年摩洛哥 Al Haouz 地震位移图" loading="lazy"></figure></div>
+<figcaption>左：穿过卡赫拉曼马拉什的剖面。右：摩洛哥 Al Haouz 地震。</figcaption>
+<p><b>土耳其。</b>沿一条穿过卡赫拉曼马拉什的西北—东南向剖面，在城市东南 17 到 27 km 处，仅 10 km 的距离内地面移动量变化约 74 cm，这正是主破裂带穿过的地方。城区的统计结果与我最初的 SNAP 处理完全一致。</p>
+<p><b>摩洛哥。</b>震中以南的一片区域朝卫星方向移动了约 15 cm，而周围山区几乎没有移动。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>只有一个观测方向。</b>雷达只能测量视线方向的移动，单个影像对无法区分上下和水平移动。</li>
+<li><b>数值是相对的。</b>结果相对于解缠软件选定的参考点，重要的是图上各处之间的差异。</li>
+<li><b>没有做大气校正，也没有用 GPS 核验。</b>水汽可能带来几厘米误差，山区尤其明显。</li>
+<li><b>处理接缝。</b>图上直边状的台阶来自数据拼接方式，不是构造运动。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>位移图（GeoTIFF）和关注地点的剖面</li><li>各区域的移动统计表</li>
+<li>一份通俗说明，讲清楚这些数字能支持什么、不能支持什么</li><li>用于持续监测：每次新的 Sentinel-1 过境都重跑同一流程</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>Sentinel-1 IW SLC（C 波段）</li><li>SRTM 1 角秒 DEM</li></ul></div><div><h3>方法</h3><ul><li>差分 InSAR</li><li>相位解缠</li><li>相干性掩膜</li><li>剖面统计</li></ul></div><div><h3>工具</h3><ul><li>ESA SNAP、SNAPHU</li><li>Python、NumPy、matplotlib</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/insar-deformation-monitoring" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>土耳其影像对</th><td>S1A 21 轨降轨，2023 年 1 月 29 日 → 2 月 10 日；TOPS 流程含 ESD；SNAPHU v2.0.4</td></tr><tr><th>土耳其网格</th><td>8 × 8 块中值（≈ 93 m）；P1–P99 为 −36 到 +94 cm（相对值）</td></tr><tr><th>摩洛哥影像对</th><td>S1A 45 轨升轨，2023 年 9 月 3 日 → 15 日；子条带 IW1；相干性 ≥ 0.3（13% 被掩膜）</td></tr><tr><th>剖面</th><td>垂直于区域断层走向的 10 km 条带；土耳其 2 km、摩洛哥 1 km 分箱</td></tr><tr><th>背景</th><td>研究项目，2025</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="wildfire-zh.html">一场野火释放了多少碳？</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

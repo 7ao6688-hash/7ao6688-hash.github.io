@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>寻找安静又靠近高速公路的土地｜Xiaoqiao Liu</title>
+<meta name="description" content="目标是在汉普郡的两个国家公园内，找出离高速公路近、方便出行，又避开最吵交通噪声的地方。我做了一个小工具，用政府开放数据回答这个问题，任何人只要修改一个简短的设置文件就能重跑。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/sites.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/sites-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="sites.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">选址筛选，英国汉普郡</p>
+<h1>寻找安静又靠近高速公路的土地</h1>
+<p class="lede">目标是在汉普郡的两个国家公园内，找出离高速公路近、方便出行，又避开最吵交通噪声的地方。我做了一个小工具，用政府开放数据回答这个问题，任何人只要修改一个简短的设置文件就能重跑。</p>
+<div class="stats"><div><b>92.7 km²</b><span>New Forest，5 km 以内</span></div><div><b>120.7 km²</b><span>South Downs，5 km 以内</span></div><div><b>≤ 0.01%</b><span>与 ArcGIS 原版结果的差异</span></div><div><b>0</b><span>需要的商业许可</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/hampshire-sites.webp" alt="深绿：距高速公路 5 km 以内的安静土地。浅绿：10 km 以内。"></div><figcaption>深绿：距高速公路 5 km 以内的安静土地。浅绿：10 km 以内。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>开发商、规划人员和搬迁顾问经常问同一类问题：<b>哪些土地离关键基础设施足够近，又不在限制区内？</b>这里的限制是 75 分贝及以上的道路噪声，即政府噪声模型中最吵的一档。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>选出高速公路</b>：来自英国地形测量局的开放道路网。</li>
+<li><b>绘制<span class="term" tabindex="0">缓冲区<span class="def" role="tooltip">缓冲区：围绕某个要素画出固定宽度的范围，例如高速公路 5 km 以内的所有土地。</span></span></b>：在高速公路周围画 5 km 和 10 km 范围，各自合并成一个区域。</li>
+<li><b>去掉最吵的土地</b>：公园内所有位于 DEFRA ≥ 75 dB 道路噪声区的部分。</li>
+<li><b>叠加</b>剩余的安静土地和各个缓冲区，计算面积。</li>
+<li><b>核对结果</b>：与我最初用 ArcGIS 做的同一分析对比。</li></ol>
+</section>
+<section><h2>结果显示了什么</h2>
+<p>距高速公路 5 km 以内且噪声低于 75 dB 的土地，New Forest 有 92.7 km²（占公园 16%），South Downs 有 120.7 km²（7%）。扩大到 10 km 后，分别为 277 km² 和 351 km²。开源版本与 ArcGIS 的差异在 0.01% 以内，这一点点差别来自两个软件绘制缓冲区圆弧端点的方式不同。</p>
+<p class="callout">所有可能需要修改的内容都在一个简短的设置文件里：公园、距离、道路类型和噪声等级。不需要编程，工具会用通俗语言解释错误。例如道路类型拼错了，它会列出实际找到的类型。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>噪声是模型值，不是实测值</b>，高度为离地 4 m。没有噪声数据的土地算作安静，这也是政府数据本身的解读方式。</li>
+<li><b>只用了两个条件。</b>真实选址还要考虑土地权属、受保护生境、洪水风险和规划规定。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>适宜土地图层（GeoPackage）和面积表</li><li>总览地图</li>
+<li>可复用的工具和设置文件，适用于新的区域和条件</li><li>把现有 ArcGIS/arcpy 流程迁移到开源 Python，并核对结果</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>DEFRA 道路噪声（LAeq,16h）</li><li>Natural England 国家公园</li><li>OS Open Roads</li></ul></div><div><h3>方法</h3><ul><li>缓冲区与叠加分析</li><li>限制条件制图</li><li>与 ArcGIS 结果核对</li></ul></div><div><h3>工具</h3><ul><li>Python、GeoPandas、Shapely</li><li>最初使用 ArcGIS Pro（arcpy）</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/quiet-zone-finder" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>步骤</th><td>选择道路等级 → 按距离生成合并缓冲区 → 擦除排除的噪声等级 → 相交 → 面积</td></tr><tr><th>核对</th><td>New Forest 5 km：92.707（ArcGIS）对 92.719 km²；South Downs 10 km：350.625 对 350.636 km²</td></tr><tr><th>许可</th><td>所有输入均采用 Open Government Licence v3.0；附带打包好的示例数据</td></tr><tr><th>背景</th><td>研究项目，最初用 ArcGIS Pro（arcpy）完成，后用开源 Python 重写</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="chlorophyll-zh.html">哪个卫星指数最能反映植物健康？</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

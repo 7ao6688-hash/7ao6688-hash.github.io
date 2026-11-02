@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>找出格拉斯哥最需要绿化降温的地方｜Xiaoqiao Liu</title>
+<meta name="description" content="城市升温并不均匀。我用一景六月晴朗早晨的 Landsat 影像，绘制了格拉斯哥的地表温度，测量了绿化更多的地方凉快多少，并找出最适合种树、最能见效的炎热裸露街区。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/glasgow.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/glasgow-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="glasgow.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">城市热岛，英国格拉斯哥，2019 年 6 月</p>
+<h1>找出格拉斯哥最需要绿化降温的地方</h1>
+<p class="lede">城市升温并不均匀。我用一景六月晴朗早晨的 Landsat 影像，绘制了格拉斯哥的地表温度，测量了绿化更多的地方凉快多少，并找出最适合种树、最能见效的炎热裸露街区。</p>
+<div class="stats"><div><b>4.6 °C</b><span>建成区比草地更热</span></div><div><b>0.9 °C</b><span>NDVI 每增加 0.1 降温</span></div><div><b>25.5 km²</b><span>需优先处理的炎热裸露建成区</span></div><div><b>203 km²</b><span>以 30 m 分辨率分析的城区面积</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/glasgow-priority.webp" alt="植被稀少的炎热建成区，按绿化可能带来的效果排序。"></div><figcaption>植被稀少的炎热建成区，按绿化可能带来的效果排序。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>规划行道树、绿色屋顶和公园的市政部门需要知道<b>在哪里增加绿化降温效果最好</b>。高温影响健康和舒适度，而预算有限。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>测量地表温度</b>（<span class="term" tabindex="0">LST<span class="def" role="tooltip">地表温度：用热红外测得的地面和屋顶有多热，不是人体感受到的气温。</span></span>）：用 Landsat 8 热红外波段，并校正不同地表的发射率差异。</li>
+<li><b>绘制植被和土地覆盖</b>：用红光和近红外波段计算 <span class="term" tabindex="0">NDVI<span class="def" role="tooltip">归一化植被指数：(近红外 − 红光) ÷ (近红外 + 红光)。值越高，植被越多、越健康。</span></span>，并分类为建成区、水体、森林和草地。</li>
+<li><b>测量绿化的降温效果</b>：从 200 个随机像元对温度和 NDVI 做回归，并给出<span class="term" tabindex="0">自助法<span class="def" role="tooltip">自助法：对数据反复重抽样，看结果会因偶然因素变化多少，从而得到置信区间。</span></span>置信区间。</li>
+<li><b>对优先区排序</b>：既炎热（远高于全市平均）又缺少植被的建成区像元。</li>
+<li><b>估算绿化的收益</b>：NDVI 小幅、中幅和大幅增加时分别能降温多少。</li></ol>
+</section>
+<section><h2>地图显示了什么</h2>
+<div class="pair"><figure class="fig"><img src="../assets/glasgow-lst.webp" alt="格拉斯哥地表温度图" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/glasgow-scatter.webp" alt="温度与 NDVI 散点图" loading="lazy"></figure></div>
+<p>2019 年 6 月 28 日，建成区地表平均 25.9 °C，草地为 21.3 °C。植被越多的像元明显越凉快：NDVI 每增加 0.1，约降温 0.9 °C（95% 区间 0.7 到 1.0 °C）。</p>
+<p class="callout">在 25.5 km² 的优先区内把 NDVI 提高 0.10，例如种行道树、建绿色屋顶，地表大约能降温 <b>0.9 °C（0.7 到 1.0 °C）</b>。可以在首页的互动工具里试试其他数值。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>是地表温度，不是气温。</b>卫星测的是屋顶和道路有多热，不是人感受到的气温。</li>
+<li><b>只有一个晴朗的早晨。</b>单景影像只反映一个时刻，不代表整个夏天。</li>
+<li><b>是相关，不是因果。</b>降温估计假设全市范围的关系在局部同样成立，适合用来筛选，不能保证某一条街的效果。</li>
+<li><b>小水体在 30 m 分辨率下会被低估。</b></li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>全市温度图和植被图</li><li>绿化优先区排序图</li>
+<li>附不确定性范围的降温情景</li><li>可与相关方一起探索方案的互动仪表板</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>Landsat 8 OLI/TIRS，2019 年 6 月 28 日</li><li>格拉斯哥市界</li></ul></div><div><h3>方法</h3><ul><li>地表温度反演</li><li>监督分类</li><li>回归与自助法</li><li>优先区筛选</li></ul></div><div><h3>工具</h3><ul><li>ENVI、ArcGIS Pro</li><li>Python、NumPy</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/urban-heat-intervention-explorer" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>地表温度</th><td>TIRS 第 10 波段：辐亮度 → 亮温 → 基于 NDVI 的发射率 → Sobrino 校正</td></tr><tr><th>土地覆盖</th><td>最大似然分类：建成区 121 km²，森林 59 km²，草地 21 km²，水体 1 km²</td></tr><tr><th>回归</th><td>LST = −8.74 × NDVI + 29.5 °C；R² = 0.46；n = 200；自助法 95% CI −10.1 到 −7.1</td></tr><tr><th>优先区</th><td>建成区，地表温度高于全市均值 ≥ 0.35 个标准差，NDVI < 0.35</td></tr><tr><th>情景</th><td>+0.05 → 0.44 °C · +0.10 → 0.87 °C · +0.15 → 1.31 °C</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="spain-zh.html">西班牙哪些省份的用水超过了本地产水？</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

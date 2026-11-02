@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>一场野火释放了多少碳？｜Xiaoqiao Liu</title>
+<meta name="description" content="2020 年的 Red Salmon Complex 火灾烧毁了北加州的针叶林。我对比火灾前后的卫星影像，绘制了各区域的火烧强度，估算了森林损失的碳量，并给出这个估计的不确定性。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/wildfire.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/wildfire-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="wildfire.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">森林碳储量，美国加州，2020</p>
+<h1>一场野火释放了多少碳？</h1>
+<p class="lede">2020 年的 Red Salmon Complex 火灾烧毁了北加州的针叶林。我对比火灾前后的卫星影像，绘制了各区域的火烧强度，估算了森林损失的碳量，并给出这个估计的不确定性。</p>
+<div class="stats"><div><b>6.8 Mt</b><span>树木损失的碳（估算）</span></div><div><b>71,600 ha</b><span>发生不同程度火烧的面积</span></div><div><b>10% → 58%</b><span>高强度火烧面积占比 → 碳损失占比</span></div><div><b>−17% to +46%</b><span>敏感性测试给出的范围</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/wildfire-severity.webp" alt="Sentinel-2 火烧强度：从未过火（灰）到高强度（深红）。"></div><figcaption>Sentinel-2 火烧强度：从未过火（灰）到高强度（深红）。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>林地所有者、碳汇项目和气候报告都需要知道<b>一场火释放了多少碳</b>。答案取决于每块林地烧得多严重，以及火前有多少木材。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>对比 Sentinel-2 影像</b>：2020 年 7 月（火前）和 2021 年 6 月（火后），分辨率 10 m。</li>
+<li><b>绘制火烧强度</b>：用 <span class="term" tabindex="0">dNBR<span class="def" role="tooltip">火烧前后归一化燃烧比的差值。下降越多，植被烧得越严重。</span></span> 按标准阈值分为未过火、低、中、高强度。</li>
+<li><b>估算火前的木材量</b>（<span class="term" tabindex="0">地上生物量<span class="def" role="tooltip">地上生物量：树干、树枝和树叶的干重，单位为吨/公顷。</span></span>），使用简单的植被模型，并估计每个强度等级损失多少。</li>
+<li><b>把生物量换算成碳</b>（干木材的 48% 是碳）并汇总。</li>
+<li><b>对每个假设做压力测试</b>：逐一上下调整，重新跑完整估算。</li></ol>
+</section>
+<section><h2>结果显示了什么</h2>
+<div class="pair"><figure class="fig"><img src="../assets/wildfire-carbon.webp" alt="每公顷碳损失地图" loading="lazy"></figure>
+<figure class="fig"><img src="../assets/wildfire-share.webp" alt="各强度等级的面积占比和碳损失占比" loading="lazy"></figure></div>
+<p>高强度火烧只占约 10% 的面积，却造成了 <b>58%</b> 的碳损失。森林总共损失了约 680 万吨碳，约为火前储量的 17%。</p>
+<figure class="fig"><img src="../assets/wildfire-sensitivity.webp" alt="总量对各项假设的敏感性" loading="lazy"></figure>
+<p>敏感性测试显示，影响最大的假设是火烧强度阈值：稍微调低阈值，总量就上升 46%。因此需要给出<b>一个范围，而不是一个数字</b>，而实地样地最能缩小这个范围。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>生物量模型是简化假设</b>，没有用实测数据校准，可以换成已发表的生物量地图。</li>
+<li><b>季节不同。</b>两景影像分别来自不同年份的 7 月和 6 月，火场外一些“低强度”像元可能只是季节变化。</li>
+<li><b>只计算了地上活树。</b>土壤、枯落物和之后陆续死亡的树木未计入。</li>
+<li>这项分析的早期版本用另一种火烧图层得到 4.5 Mt，差异原因在代码仓库中有说明。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>火烧强度图和碳损失图（GeoTIFF）</li><li>按强度等级和关注区域汇总的表格</li>
+<li>显示合理范围的敏感性表</li><li>在哪里布设实地样地最能降低不确定性的建议</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>Sentinel-2，10 m</li><li>火前：2020 年 7 月 26 日</li><li>火后：2021 年 6 月 1 日</li></ul></div><div><h3>方法</h3><ul><li>dNBR 火烧强度</li><li>生物量与碳核算</li><li>单因素敏感性分析</li></ul></div><div><h3>工具</h3><ul><li>Python、NumPy、matplotlib</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/wildfire-carbon-loss" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>指数</th><td>NBR = (B8 − B12)/(B8 + B12)；dNBR = 火前 NBR − 火后 NBR</td></tr><tr><th>等级</th><td>未过火 < 0.10 ≤ 低 < 0.27 ≤ 中 < 0.44 ≤ 高</td></tr><tr><th>生物量</th><td>AGB（t/ha）= 150 × 火前 NBR + 200；各等级保留率 100 / 60 / 30 / 0%</td></tr><tr><th>碳</th><td>碳 = AGB 损失 × 0.48，按 0.01 ha 像元求和</td></tr><tr><th>影像范围</th><td>53 × 54 km，285,902 ha，UTM 10N 带</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="glasgow-zh.html">找出格拉斯哥最需要绿化降温的地方</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

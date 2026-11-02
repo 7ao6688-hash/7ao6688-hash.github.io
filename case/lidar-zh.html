@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>把 LiDAR 数据变成森林清查｜Xiaoqiao Liu</title>
+<meta name="description" content="机载激光扫描能从空中测出每棵树的高度。这个项目把 LiDAR 高程模型转化为冠层高度、林分统计，以及最需要实地核查的林区排序清单。">
+<script>try{localStorage.setItem("lang","zh")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/case.css?v=5">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://7ao6688-hash.github.io/case/lidar.html">
+<link rel="alternate" hreflang="zh-CN" href="https://7ao6688-hash.github.io/case/lidar-zh.html">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html">Xiaoqiao Liu <span>Earth observation</span></a>
+<nav><a href="../index.html#work">案例</a><a href="../index.html#lab">互动工具</a><a href="../index.html#contact">联系</a>
+<a class="lang" href="lidar.html" onclick="try{localStorage.setItem('lang','en')}catch(e){}">English</a></nav></div></header>
+<main class="wrap">
+<div class="case-head">
+<a class="back" href="../index.html#work">返回全部案例</a>
+<p class="label">LiDAR 森林清查，英国 New Forest</p>
+<h1>把 LiDAR 数据变成森林清查</h1>
+<p class="lede">机载激光扫描能从空中测出每棵树的高度。这个项目把 LiDAR 高程模型转化为冠层高度、林分统计，以及最需要实地核查的林区排序清单。</p>
+<div class="stats"><div><b>3</b><span>个高度等级：2–10、10–15、≥ 15 m</span></div><div><b>P95</b><span>稳健的冠层顶部高度</span></div><div><b>15</b><span>原研究中的森林小班</span></div><div><b>演示</b><span>用合成数据公开发布</span></div></div>
+</div>
+<figure class="hero-fig"><div class="fig"><img src="../assets/lidar-dashboard.svg" alt="流程生成的清查仪表板（合成数据演示场景）。"></div><figcaption>流程生成的清查仪表板（合成数据演示场景）。</figcaption></figure>
+<div class="cols">
+<article class="prose">
+<section><h2>问题</h2>
+<p>森林管理者需要知道<b>每个小班的树有多高、有多密</b>，用来规划间伐、保护生境、估算木材或碳储量。逐个林分步行测量很慢，而 <span class="term" tabindex="0">LiDAR<span class="def" role="tooltip">激光雷达：飞机发射激光脉冲并记录返回时间，以三维方式测绘地面和树冠。</span></span> 一次飞行就能覆盖整片森林。</p>
+</section>
+<section><h2>我做了什么</h2>
+<ol class="steps">
+<li><b>从激光回波中分离地面和植被</b>，生成数字地面模型（DTM）和数字表面模型（DSM）。</li>
+<li><b>计算冠层高度</b>（<span class="term" tabindex="0">CHM<span class="def" role="tooltip">冠层高度模型：植被高出地面的高度，等于地表高度（DSM）减去地面高度（DTM）。</span></span>）：表面减去地面，负值设为零。</li>
+<li><b>汇总每个森林小班</b>：冠层覆盖度、各高度等级的树木占比，以及第 95 百分位高度（可排除个别异常高的像元）。</li>
+<li><b>测试结果的稳定性</b>：高程模型偏差几十厘米或高度阈值改变时，结果会怎样变化。</li>
+<li><b>为实地核查排序小班</b>：使用透明的评分方法，让林业人员知道先去哪里看。</li></ol>
+</section>
+<section><h2>产出什么</h2>
+<p>在最初的研究项目中，我把这套方法用于 New Forest 的 15 个小班，结合 LiDAR 和机载多光谱影像对冠层分类。公开版本把流程重建为经过测试、可复用的代码。由于原始测量数据有许可限制，它附带一个结构相同的<b>合成场景</b>，任何人都可以运行并查看输出。</p>
+<p class="callout">排序结果是一份先派实地团队去哪里的清单，不决定在哪里采伐。在 New Forest 这样的保护地，采伐决定还取决于生境、通行和许可。</p>
+</section>
+<section><h2>结果有多可靠？</h2>
+<ul class="limits">
+<li><b>公开结果是演示</b>，不是实地测量。</li>
+<li><b>高程模型的垂直误差</b>会让所有高度整体偏移，流程会报告这种偏移下排序如何变化。</li>
+<li><b>高度不等于树种。</b>区分针叶和阔叶需要多光谱或实地数据。</li></ul>
+</section>
+<section><h2>可以交付什么</h2>
+<ul><li>冠层高度图和覆盖度图</li><li>包含高度等级和 P95 高度的小班表</li>
+<li>实地验证优先清单</li><li>一份数据指南，说明如何在 PDAL、QGIS 或 ArcGIS 中准备您自己的 LiDAR（LAS/LAZ 或 GeoTIFF）</li></ul>
+</section>
+</article>
+<aside class="glance"><div><h3>数据</h3><ul><li>机载 LiDAR（DSM、DTM）</li><li>森林掩膜和小班</li><li>CASI 多光谱（原研究）</li></ul></div><div><h3>方法</h3><ul><li>冠层高度模型</li><li>分区统计</li><li>垂直偏差敏感性</li><li>优先级评分</li></ul></div><div><h3>工具</h3><ul><li>Python、NumPy</li><li>ArcGIS（原研究）</li></ul></div>
+<a class="btn" href="https://github.com/7ao6688-hash/new-forest-lidar-inventory" target="_blank" rel="noopener">GitHub 上的代码和数据</a>
+<a class="btn primary" href="../index.html#contact">咨询类似项目</a>
+</aside>
+</div>
+<details class="tech"><summary>技术细节</summary><div class="table-wrap"><table><tr><th>CHM</th><td>max(DSM − DTM, 0)，统一网格和垂直基准</td></tr><tr><th>指标</th><td>每个小班的冠层覆盖度、2–10 / 10–15 / ≥ 15 m 各等级占比、P95 高度</td></tr><tr><th>敏感性</th><td>垂直偏差和阈值情景；报告排序稳定性</td></tr><tr><th>原研究</th><td>由首末次回波差异提取地面点，IDW 生成 DTM，TIN 转栅格生成 DSM，共 15 个小班</td></tr></table></div></details>
+<div class="next"><div><p class="label">下一个案例</p><h2><a href="valencia-zh.html">从太空绘制瓦伦西亚 DANA 洪水</a></h2></div>
+<a href="../index.html#work">全部案例</a></div>
+</main>
+<footer><div class="wrap">© 2026 Xiaoqiao Liu。卫星数据：Copernicus Sentinel、USGS Landsat。案例代码采用 MIT 许可。</div></footer>
+</body>
+</html>

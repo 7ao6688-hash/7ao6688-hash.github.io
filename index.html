@@ -411,5 +411,17 @@
 })();
 </script>
 <script src="assets/lab.js" defer></script>
+<script>
+(() => {
+  const links = [...document.querySelectorAll('a[href^="case/"]')];
+  links.forEach(a => { a.dataset.en = a.getAttribute("href"); });
+  const sync = () => {
+    const zh = document.documentElement.lang.startsWith("zh");
+    links.forEach(a => a.setAttribute("href", zh ? a.dataset.en.replace(".html", "-zh.html") : a.dataset.en));
+  };
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+  sync();
+})();
+</script>
 </body>
 </html>
